@@ -6,12 +6,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Main extends Application {
 
@@ -34,6 +36,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
     private HBox bottomBox(){
         VBox left = leftVBox();
         VBox right = rightBox();
@@ -44,11 +47,66 @@ public class Main extends Application {
         return hbox;
     }
 
+    public HBox createSortBox(ArrayList<Game> games) {
+        ComboBox<String> sortOptions = new ComboBox<>();
+        sortOptions.getItems().addAll("Sort by Name", "Sort by Release Year");
+        sortOptions.setValue("Sort by Name");
+
+        Button sortButton = new Button("Sort");
+
+        sortButton.setOnAction(e -> {
+            String selected = sortOptions.getValue();
+            if (selected.equals("Sort by Name")) {
+                games.sort(Comparator.comparing(Game::getName));
+            } else if (selected.equals("Sort by Release Year")) {
+                games.sort(Comparator.comparingInt(Game::getYear));
+            }
+            createGameGrid();
+        });
+
+        HBox hbox = new HBox(10, sortOptions, sortButton);
+        hbox.setStyle("-fx-padding: 0 0 20 380;");
+
+        return hbox;
+    }
+
+    private VBox createGameBox(Game game) {
+        ImageView imageView = new ImageView(new Image(game.getImagePath()));
+        imageView.setFitWidth(110);
+        imageView.setFitHeight(150);
+        //imageView.setOnMouseClicked(e -> openGameDetail(game));
+
+        Label nameLabel = new Label(game.getName());
+        VBox vBox = new VBox(5, imageView, nameLabel);
+        vBox.setAlignment(Pos.CENTER);
+        return vBox;
+    }
+
+    private void  createGameGrid() {
+        gridPane.getChildren().clear();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        int col = 0, row = 0;
+        for (Game game : games) {
+            VBox gameBox = createGameBox(game);
+            gameBox.setPrefWidth(100);
+            gridPane.add(gameBox, col, row);
+            col++;
+            if (col == 5) {
+                col = 0;
+                row++;
+            }
+        }
+    }
+
     private VBox rightBox(){
+        HBox hBox = createSortBox(games);
+        createGameGrid();
         ScrollPane scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
         scrollPane.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
-        VBox box = new VBox(scrollPane);
+        VBox box = new VBox(hBox,scrollPane);
         box.setPadding(new Insets(20, 0, 0, 20));
         return box;
     }
@@ -170,5 +228,5 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
+}
 }
