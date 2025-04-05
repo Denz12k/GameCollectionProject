@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class Main extends Application {
         ImageView imageView = new ImageView(new Image(game.getImagePath()));
         imageView.setFitWidth(110);
         imageView.setFitHeight(150);
-        //imageView.setOnMouseClicked(e -> openGameDetail(game));
+        imageView.setOnMouseClicked(e -> openGameDetail(game));
 
         Label nameLabel = new Label(game.getName());
         VBox vBox = new VBox(5, imageView, nameLabel);
@@ -226,7 +227,25 @@ public class Main extends Application {
         games.add(new Game("Game 10", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
     }
 
+    private void openGameDetail(Game game) {
+        Stage detailStage = new Stage();
+        detailStage.initModality(Modality.APPLICATION_MODAL);
+        ImageView imageView = new ImageView(new Image(game.getImagePath()));
+        imageView.setFitWidth(200);
+        imageView.setFitHeight(300);
+
+        Label nameLabel = new Label("Game: " + game.getName());
+        Label yearLabel = new Label("Release Year: " + game.getYear());
+        VBox vBox = new VBox(10, imageView, nameLabel,yearLabel);
+        vBox.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(vBox, 300, 400);
+        detailStage.setTitle(game.getName());
+        detailStage.setScene(scene);
+        detailStage.showAndWait();
+    }
+
     public static void main(String[] args) {
         launch();
-}
+    }
 }
