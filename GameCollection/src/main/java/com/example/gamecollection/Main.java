@@ -10,16 +10,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Main extends Application {
 
-    private ArrayList<Game> games = new ArrayList<>();
-    private GridPane gridPane = new GridPane();
+    private final ArrayList<Game> games = new ArrayList<>();
+    private final GridPane gridPane = new GridPane();
 
     @Override
     public void start(Stage stage) {
@@ -28,7 +26,9 @@ public class Main extends Application {
         HBox bottomHBox = bottomBox();
 
         VBox root = new VBox(menuBar, bottomHBox);
-        Scene scene = new Scene(root, 900, 600);
+        root.setStyle("-fx-background-color: #f9f9f9;");
+
+        Scene scene = new Scene(root, 1200, 700);
 
         Image icon = new Image("icon.png");
         stage.getIcons().add(icon);
@@ -36,16 +36,6 @@ public class Main extends Application {
         stage.setTitle("Game Collection Library");
         stage.setScene(scene);
         stage.show();
-    }
-
-    private HBox bottomBox(){
-        VBox left = leftVBox();
-        VBox right = rightBox();
-        HBox hbox = new HBox(30);
-        hbox.getChildren().addAll(left,right);
-        hbox.setPadding(new Insets(0,0,0,20));
-        HBox.setHgrow(right, Priority.ALWAYS);
-        return hbox;
     }
 
     public HBox createSortBox(ArrayList<Game> games) {
@@ -66,64 +56,117 @@ public class Main extends Application {
         });
 
         HBox hbox = new HBox(10, sortOptions, sortButton);
-        hbox.setStyle("-fx-padding: 0 0 20 380;");
+        hbox.setAlignment(Pos.CENTER_RIGHT);
+        hbox.setPadding(new Insets(10));
 
         return hbox;
     }
 
-    private VBox createGameBox(Game game) {
-        ImageView imageView = new ImageView(new Image(game.getImagePath()));
-        imageView.setFitWidth(110);
-        imageView.setFitHeight(150);
-        imageView.setOnMouseClicked(e -> openGameDetail(game));
-
-        Label nameLabel = new Label(game.getName());
-        VBox vBox = new VBox(5, imageView, nameLabel);
-        vBox.setAlignment(Pos.CENTER);
-        return vBox;
+    private void listFiller() {
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png", 2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png", 2011));
+        games.add(new Game("Counter Strike GO", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg", 2012));
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
+        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
+        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
+        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
+        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
+        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
+        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
+        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
+        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
+        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
+        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
+        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
+        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
+        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
+        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
     }
 
-    private void  createGameGrid() {
-        gridPane.getChildren().clear();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-
-        int col = 0, row = 0;
-        for (Game game : games) {
-            VBox gameBox = createGameBox(game);
-            gameBox.setPrefWidth(100);
-            gridPane.add(gameBox, col, row);
-            col++;
-            if (col == 5) {
-                col = 0;
-                row++;
-            }
-        }
+    private HBox bottomBox() {
+        VBox left = leftVBox();
+        VBox right = rightBox();
+        HBox hbox = new HBox(25, left, right);
+        hbox.setPadding(new Insets(20));
+        return hbox;
     }
 
-    private VBox rightBox(){
-        HBox hBox = createSortBox(games);
+    private VBox rightBox() {
+        HBox sortBox = createSortBox(games);
         createGameGrid();
+        sortBox.setStyle("-fx-background-color: #f0f0f0;");
+
         ScrollPane scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
-        scrollPane.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
-        VBox box = new VBox(hBox,scrollPane);
-        box.setPadding(new Insets(20, 0, 0, 20));
+        scrollPane.setStyle("-fx-background-color: #f0f0f0;");
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+        VBox box = new VBox(10, sortBox, scrollPane);
+        box.setAlignment(Pos.TOP_CENTER);
         return box;
     }
 
-    private VBox leftVBox(){
-        VBox searchBox = new VBox(10);
-        searchBox.setAlignment(Pos.CENTER);
+    private MenuBar menuBar() {
+        MenuBar menuBar = new MenuBar();
 
-        Label titleLabel = new Label("GAME LIBRARY");
-        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        Menu fileMenu = new Menu("File");
+        MenuItem newGame = new MenuItem("New Game");
+        MenuItem importJson = new MenuItem("Import JSON");
+        MenuItem exportJson = new MenuItem("Export JSON");
+        fileMenu.getItems().addAll(newGame, importJson, exportJson);
+
+        Menu editMenu = new Menu("Edit");
+        MenuItem editGame = new MenuItem("Edit Game");
+        MenuItem deleteGame = new MenuItem("Delete Game");
+        editMenu.getItems().addAll(editGame, deleteGame);
+
+        Menu helpMenu = new Menu("Help");
+        MenuItem userManual = new MenuItem("User Manual");
+        MenuItem about = new MenuItem("About");
+        helpMenu.getItems().addAll(userManual, about);
+
+        menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu);
+        return menuBar;
+    }
+
+    private VBox leftVBox() {
+        VBox searchBox = new VBox(20);
+        searchBox.setPadding(new Insets(10));
+        searchBox.setAlignment(Pos.CENTER);
+        searchBox.setPrefWidth(250);
+
+        Label titleLabel = new Label("🎮 GAME LIBRARY");
+        titleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 22));
+        titleLabel.setPrefWidth(250);
 
         TextField searchField = new TextField();
         searchField.setPromptText("Search for a game...");
 
         Button searchButton = new Button("Search");
-        HBox hBox = new HBox(10,searchField,searchButton);
+        searchButton.setMaxWidth(Double.MAX_VALUE);
+
+        VBox searchArea = new VBox(10, searchField, searchButton);
 
         VBox platformBox = new VBox(5);
         platformBox.setAlignment(Pos.TOP_LEFT);
@@ -151,7 +194,7 @@ public class Main extends Application {
         Label genreLabel = new Label("Game Genres");
         genreLabel.setStyle("-fx-font-weight: bold;");
         CheckBox rpgCheckBox = new CheckBox("RPG (Role-Playing Game)");
-        CheckBox turnBasedCheckBox = new CheckBox("Turn-based (Sıra tabanlı)");
+        CheckBox turnBasedCheckBox = new CheckBox("Turn-based");
         CheckBox actionCheckBox = new CheckBox("Action");
         CheckBox adventureCheckBox = new CheckBox("Adventure");
         CheckBox strategyCheckBox = new CheckBox("Strategy");
@@ -164,88 +207,76 @@ public class Main extends Application {
                 actionCheckBox, adventureCheckBox, strategyCheckBox, puzzleCheckBox,
                 simulationCheckBox, fpsCheckBox, racingCheckBox, fightingCheckBox);
 
-        searchBox.getChildren().addAll(titleLabel, hBox,
+        searchBox.getChildren().addAll(titleLabel, searchArea,
                 platformBox, featuresBox, genreBox);
-
         return searchBox;
     }
 
-    private MenuBar menuBar() {
-        MenuBar menuBar = new MenuBar();
+    private void createGameGrid() {
+        gridPane.getChildren().clear();
+        gridPane.setHgap(20);
+        gridPane.setVgap(20);
+        gridPane.setPadding(new Insets(20));
 
-        Menu fileMenu = new Menu("File");
-        MenuItem newGame = new MenuItem("New Game");
-        MenuItem importJson = new MenuItem("Import JSON");
-        MenuItem exportJson = new MenuItem("Export JSON");
-        fileMenu.getItems().addAll(newGame, importJson, exportJson);
-
-        Menu editMenu = new Menu("Edit");
-        MenuItem editGame = new MenuItem("Edit Game");
-        MenuItem deleteGame = new MenuItem("Delete Game");
-        editMenu.getItems().addAll(editGame, deleteGame);
-
-
-        Menu helpMenu = new Menu("Help");
-        MenuItem userManual = new MenuItem("User Manual");
-        MenuItem about = new MenuItem("About");
-        helpMenu.getItems().addAll(userManual, about);
-
-        menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu);
-        return menuBar;
+        int col = 0, row = 0;
+        for (Game game : games) {
+            VBox gameBox = createGameBox(game);
+            gameBox.setPrefWidth(150);
+            gridPane.add(gameBox, col, row);
+            col++;
+            if (col == 5) {
+                col = 0;
+                row++;
+            }
+        }
     }
 
-    private void listFiller(){
-        games.add(new Game("League of Legends", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Minecraft", "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",2011));
-        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
-        games.add(new Game("Game 4", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 5", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 6", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 7", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 8", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 9", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 1", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 2", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 3", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 4", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 5", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 6", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 7", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 8", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Game 9", "https://upload.wikimedia.org/wikipedia/tr/thumb/7/77/League_of_Legends_logo.png/220px-League_of_Legends_logo.png",2009));
-        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
-        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
-        games.add(new Game("Game 10", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
-        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
-        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
-        games.add(new Game("Game 10", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
-        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
-        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
-        games.add(new Game("Game 10", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
-        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
-        games.add(new Game("Counter Strike Global Offensive", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
-        games.add(new Game("Game 10", "https://upload.wikimedia.org/wikipedia/en/6/6e/CSGOcoverMarch2020.jpg",2012));
+    private VBox createGameBox(Game game) {
+        ImageView imageView = new ImageView(new Image(game.getImagePath(), true));
+        imageView.setFitWidth(130);
+        imageView.setFitHeight(180);
+        imageView.setOnMouseClicked(e -> openGameDetail(game));
+
+        Label nameLabel = new Label(game.getName());
+        nameLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 14));
+        nameLabel.setAlignment(Pos.CENTER);
+
+        VBox vBox = new VBox(10, imageView, nameLabel);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setPadding(new Insets(10));
+        vBox.setStyle(
+                "-fx-background-color: #ffffff;" +
+                        "-fx-border-color: #cccccc;" +
+                        "-fx-border-radius: 5;" +
+                        "-fx-background-radius: 5;" +
+                        "-fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);"
+        );
+        vBox.setPrefWidth(150);
+
+        return vBox;
     }
 
     private void openGameDetail(Game game) {
         Stage detailStage = new Stage();
-        detailStage.initModality(Modality.APPLICATION_MODAL);
+
         ImageView imageView = new ImageView(new Image(game.getImagePath()));
         imageView.setFitWidth(200);
         imageView.setFitHeight(300);
 
         Label nameLabel = new Label("Game: " + game.getName());
         Label yearLabel = new Label("Release Year: " + game.getYear());
-        VBox vBox = new VBox(10, imageView, nameLabel,yearLabel);
-        vBox.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(vBox, 300, 400);
+        VBox vBox = new VBox(20, imageView, nameLabel, yearLabel);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setPadding(new Insets(20));
+
+        Scene scene = new Scene(vBox, 350, 450);
         detailStage.setTitle(game.getName());
         detailStage.setScene(scene);
         detailStage.showAndWait();
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }
