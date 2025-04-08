@@ -1,5 +1,6 @@
 package com.example.gamecollection;
 
+import com.example.gamecollection.Game;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,28 +8,35 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main extends Application {
 
-    private final ArrayList<Game> games = new ArrayList<>();
-    private final GridPane gridPane = new GridPane();
+    private ArrayList<Game> games = new ArrayList<>();
+    private List<Game> filteredGames = new ArrayList<>();
+    private GridPane gridPane = new GridPane();
 
     @Override
     public void start(Stage stage) {
         listFiller();
+        filteredGames = games;
         MenuBar menuBar = menuBar();
         HBox bottomHBox = bottomBox();
 
         VBox root = new VBox(menuBar, bottomHBox);
         root.setStyle("-fx-background-color: #f9f9f9;");
 
-        Scene scene = new Scene(root, 1200, 700);
+        Scene scene = new Scene(root, 1130, 680);
 
         Image icon = new Image("icon.png");
         stage.getIcons().add(icon);
@@ -38,21 +46,38 @@ public class Main extends Application {
         stage.show();
     }
 
-    public HBox createSortBox(ArrayList<Game> games) {
+    public HBox createSortBox() {
         ComboBox<String> sortOptions = new ComboBox<>();
-        sortOptions.getItems().addAll("Sort by Name", "Sort by Release Year");
-        sortOptions.setValue("Sort by Name");
+        sortOptions.getItems().addAll("Sort by Name (A-Z)",
+                "Sort by Name (Z-A)",
+                "Sort by Release Year (Newest)",
+                "Sort by Release Year (Oldest)",
+                "Sort by Playtime (Longest)",
+                "Sort by Playtime (Shortest)",
+                "Sort by Developer",
+                "Sort by Platform Count",
+                "Sort by Genre Count");
+        sortOptions.setValue("Sort by Name (A-Z)");
 
         Button sortButton = new Button("Sort");
 
         sortButton.setOnAction(e -> {
             String selected = sortOptions.getValue();
-            if (selected.equals("Sort by Name")) {
-                games.sort(Comparator.comparing(Game::getName));
-            } else if (selected.equals("Sort by Release Year")) {
-                games.sort(Comparator.comparingInt(Game::getYear));
+            List<Game> recentGames = filteredGames;
+
+            switch (selected) {
+                case "Sort by Name (A-Z)" -> recentGames.sort(Comparator.comparing(Game::getName));
+                case "Sort by Name (Z-A)" -> recentGames.sort(Comparator.comparing(Game::getName).reversed());
+                case "Sort by Release Year (Newest)" -> recentGames.sort(Comparator.comparingInt(Game::getYear).reversed());
+                case "Sort by Release Year (Oldest)" -> recentGames.sort(Comparator.comparingInt(Game::getYear));
+                case "Sort by Playtime (Longest)" ->
+                        recentGames.sort(Comparator.comparingInt(Game::getTotalPlaytimeHours).reversed());
+                case "Sort by Playtime (Shortest)" -> recentGames.sort(Comparator.comparingInt(Game::getTotalPlaytimeHours));
+                case "Sort by Developer" -> recentGames.sort(Comparator.comparing(Game::getDeveloper));
+                case "Sort by Platform Count" -> recentGames.sort(Comparator.<Game>comparingInt(g -> g.getPlatforms().size()).reversed());
+                case "Sort by Genre Count" -> recentGames.sort(Comparator.<Game>comparingInt(g -> g.getGenres().size()).reversed());
             }
-            createGameGrid();
+            createGameGrid(recentGames);
         });
 
         HBox hbox = new HBox(10, sortOptions, sortButton);
@@ -98,7 +123,7 @@ public class Main extends Application {
         valorant.addPublisher("Riot Games");
         valorant.addPlatform("PC");
         valorant.setTotalPlaytimeHours(250);
-        valorant.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/220px-Valorant_logo_-_pink_color_version.svg.png");
+        valorant.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-pink_color_version.svg/220px-Valorant_logo-_pink_color_version.svg.png");
         games.add(valorant);
 
         Game minecraft = new Game("Minecraft", "Mojang Studios", 2011, "456789");
@@ -220,7 +245,7 @@ public class Main extends Application {
         valorant1.addPublisher("Riot Games");
         valorant1.addPlatform("PC");
         valorant1.setTotalPlaytimeHours(250);
-        //valorant1.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/220px-Valorant_logo_-_pink_color_version.svg.png");
+        //valorant1.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-pink_color_version.svg/220px-Valorant_logo-_pink_color_version.svg.png");
         games.add(valorant1);
 
         Game minecraft1 = new Game("Minecraft", "Mojang Studios", 2011, "456789");
@@ -292,12 +317,12 @@ public class Main extends Application {
         VBox left = leftVBox();
         VBox right = rightBox();
         HBox hbox = new HBox(25, left, right);
-        hbox.setPadding(new Insets(20));
+        hbox.setPadding(new Insets(10));
         return hbox;
     }
 
     private VBox rightBox() {
-        HBox sortBox = createSortBox(games);
+        HBox sortBox = createSortBox();
         createGameGrid();
         sortBox.setStyle("-fx-background-color: #f0f0f0;");
 
@@ -352,6 +377,47 @@ public class Main extends Application {
 
         VBox searchArea = new VBox(10, searchField, searchButton);
 
+        searchButton.setOnAction(e -> {
+            String searchText = searchField.getText().trim().toLowerCase();
+
+            if (searchText.isEmpty()) {
+                createGameGrid();
+                filteredGames = games;
+                return;
+            }
+
+            filteredGames = games.stream()
+                    .filter(game -> {
+                        boolean nameMatch = game.getName().toLowerCase().contains(searchText.toLowerCase());
+                        boolean developerMatch = game.getDeveloper().toLowerCase().contains(searchText.toLowerCase());
+                        boolean steamIdMatch = game.getSteamAppId().equalsIgnoreCase(searchText);
+                        boolean yearMatch = false;
+                        try {
+                            int year = Integer.parseInt(searchText);
+                            yearMatch = (game.getYear() == year);
+                        } catch (NumberFormatException ex) {
+                        }
+                        return nameMatch || developerMatch || steamIdMatch || yearMatch;
+                    })
+                    .collect(Collectors.toList());
+
+            if (filteredGames.isEmpty()) {
+                Alert noResults = new Alert(Alert.AlertType.INFORMATION);
+                noResults.setTitle("No Results");
+                noResults.setHeaderText(null);
+                noResults.setContentText("No games found matching your search.");
+                noResults.showAndWait();
+            } else {
+                createGameGrid(filteredGames);
+            }
+        });
+
+        searchField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                searchButton.fire();
+            }
+        });
+
         VBox platformBox = new VBox(5);
         platformBox.setAlignment(Pos.TOP_LEFT);
         Label platformLabel = new Label("Platforms");
@@ -397,13 +463,17 @@ public class Main extends Application {
     }
 
     private void createGameGrid() {
+        createGameGrid(games);
+    }
+
+    private void createGameGrid(List<Game> gamesToDisplay) {
         gridPane.getChildren().clear();
-        gridPane.setHgap(20);
-        gridPane.setVgap(20);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
         gridPane.setPadding(new Insets(20));
 
         int col = 0, row = 0;
-        for (Game game : games) {
+        for (Game game : gamesToDisplay) {
             VBox gameBox = createGameBox(game);
             gameBox.setPrefWidth(150);
             gridPane.add(gameBox, col, row);
@@ -417,9 +487,15 @@ public class Main extends Application {
 
     private VBox createGameBox(Game game) {
         ImageView imageView = new ImageView(new Image(game.getImagePath(), true));
-        imageView.setFitWidth(130);
-        imageView.setFitHeight(180);
+        imageView.setFitWidth(120);
+        imageView.setFitHeight(170);
+        imageView.setPickOnBounds(true);
         imageView.setOnMouseClicked(e -> openGameDetail(game));
+
+        Rectangle clip = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
+        clip.setArcWidth(10);
+        clip.setArcHeight(10);
+        imageView.setClip(clip);
 
         Label nameLabel = new Label(game.getName());
         nameLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 14));
@@ -447,14 +523,56 @@ public class Main extends Application {
         imageView.setFitWidth(200);
         imageView.setFitHeight(300);
 
-        Label nameLabel = new Label("Game: " + game.getName());
-        Label yearLabel = new Label("Release Year: " + game.getYear());
+        Rectangle clip = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
+        clip.setArcWidth(10);
+        clip.setArcHeight(10);
+        imageView.setClip(clip);
 
-        VBox vBox = new VBox(20, imageView, nameLabel, yearLabel);
+        Label nameLabel = new Label("Game: " + game.getName());
+        nameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+
+        Label developerLabel = new Label("Developer: " + game.getDeveloper());
+        Label yearLabel = new Label("Release Year: " + game.getYear());
+        Label steamIdLabel = new Label("Steam ID: " + game.getSteamAppId());
+        Label playtimeLabel = new Label("Playtime: " + game.getTotalPlaytimeHours() + " hours");
+
+        String platforms = String.join(", ", game.getPlatforms());
+        Label platformsLabel = new Label("Platforms: " + platforms);
+
+        String genres = String.join(", ", game.getGenres());
+        Label genresLabel = new Label("Genres: " + genres);
+
+        String publishers = String.join(", ", game.getPublishers());
+        Label publishersLabel = new Label("Publishers: " + publishers);
+
+        VBox localizationsBox = new VBox(5);
+        int i =0;
+        for (Game.Localization loc : game.getLocalizations()) {
+            if(i==0){
+                localizationsBox.getChildren().add(new Label("Localizations:"));
+            }
+            Label locLabel = new Label("  - " + loc.getLanguage() +
+                    " (Translators: " + String.join(", ", loc.getTranslators()) +
+                    ", Dubbing: " + String.join(", ", loc.getDubbingArtists()) + ")");
+            localizationsBox.getChildren().add(locLabel);
+            i++;
+        }
+        localizationsBox.setAlignment(Pos.CENTER);
+
+        developerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        yearLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        nameLabel.setTextFill(Color.DARKBLUE);
+        yearLabel.setTextFill(Color.DARKGREEN);
+
+        VBox vBox = new VBox(20, imageView,nameLabel, developerLabel, yearLabel, steamIdLabel, playtimeLabel, platformsLabel, genresLabel, publishersLabel, localizationsBox);
+
         vBox.setAlignment(Pos.CENTER);
         vBox.setPadding(new Insets(20));
+        vBox.layout();
+        double prefWidth = vBox.prefWidth(-1) + vBox.getPadding().getLeft() + vBox.getPadding().getRight();
+        double prefHeight = vBox.prefHeight(-1) + vBox.getPadding().getTop() + vBox.getPadding().getBottom();
 
-        Scene scene = new Scene(vBox, 350, 450);
+        Scene scene = new Scene(vBox, prefWidth*1.3, prefHeight*1.3);
         detailStage.setTitle(game.getName());
         detailStage.setScene(scene);
         detailStage.showAndWait();
