@@ -69,11 +69,4 @@ public class Game {
     public void addPlatform(String platform) { platforms.add(platform); }
     public void addLocalization(Localization localization) { localizations.add(localization); }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "Game: %s (%d)\nDeveloper: %s\nSteam ID: %s\nGenres: %s\nPlaytime: %d hours",
-                name, year, developer, steamAppId, genres, totalPlaytimeHours
-        );
-    }
 }

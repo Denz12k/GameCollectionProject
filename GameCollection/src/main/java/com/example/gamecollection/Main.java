@@ -1,6 +1,5 @@
 package com.example.gamecollection;
 
-import com.example.gamecollection.Game;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -123,7 +122,7 @@ public class Main extends Application {
         valorant.addPublisher("Riot Games");
         valorant.addPlatform("PC");
         valorant.setTotalPlaytimeHours(250);
-        valorant.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-pink_color_version.svg/220px-Valorant_logo-_pink_color_version.svg.png");
+        valorant.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/220px-Valorant_logo_-_pink_color_version.svg.png");
         games.add(valorant);
 
         Game minecraft = new Game("Minecraft", "Mojang Studios", 2011, "456789");
@@ -245,7 +244,7 @@ public class Main extends Application {
         valorant1.addPublisher("Riot Games");
         valorant1.addPlatform("PC");
         valorant1.setTotalPlaytimeHours(250);
-        //valorant1.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-pink_color_version.svg/220px-Valorant_logo-_pink_color_version.svg.png");
+        //valorant1.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/220px-Valorant_logo_-_pink_color_version.svg.png");
         games.add(valorant1);
 
         Game minecraft1 = new Game("Minecraft", "Mojang Studios", 2011, "456789");
