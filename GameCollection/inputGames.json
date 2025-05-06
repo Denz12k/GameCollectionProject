@@ -1,0 +1,211 @@
+[ {
+  "name" : "The Witcher 3: Wild Hunt",
+  "developer" : "CD Projekt Red",
+  "year" : 2015,
+  "steamAppId" : "292030",
+  "genres" : [ "RPG", "Open World" ],
+  "publishers" : [ "CD Projekt" ],
+  "platforms" : [ "PC", "PlayStation 4", "Xbox One" ],
+  "totalPlaytimeHours" : 150,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Witcher_3_cover_art.jpg/250px-Witcher_3_cover_art.jpg",
+  "localizations" : [ ]
+}, {
+  "name" : "League of Legends",
+  "developer" : "Riot Games",
+  "year" : 2009,
+  "steamAppId" : "123456",
+  "genres" : [ "MOBA", "Strategy" ],
+  "publishers" : [ "Riot Games" ],
+  "platforms" : [ "PC" ],
+  "totalPlaytimeHours" : 500,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/League_of_Legends_2019_vector.svg/250px-League_of_Legends_2019_vector.svg.png",
+  "localizations" : [ ]
+}, {
+  "name" : "Counter-Strike 2",
+  "developer" : "Valve",
+  "year" : 2023,
+  "steamAppId" : "234567",
+  "genres" : [ "FPS", "Shooter" ],
+  "publishers" : [ "Valve" ],
+  "platforms" : [ "PC" ],
+  "totalPlaytimeHours" : 300,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/CS2_Cover_Art.jpg/220px-CS2_Cover_Art.jpg",
+  "localizations" : [ ]
+}, {
+  "name" : "Valorant",
+  "developer" : "Riot Games",
+  "year" : 2020,
+  "steamAppId" : "345678",
+  "genres" : [ "FPS", "Tactical Shooter" ],
+  "publishers" : [ "Riot Games" ],
+  "platforms" : [ "PC" ],
+  "totalPlaytimeHours" : 250,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/220px-Valorant_logo_-_pink_color_version.svg.png",
+  "localizations" : [ ]
+}, {
+  "name" : "Minecraft",
+  "developer" : "Mojang Studios",
+  "year" : 2011,
+  "steamAppId" : "456789",
+  "genres" : [ "Sandbox", "Adventure" ],
+  "publishers" : [ "Xbox Game Studios" ],
+  "platforms" : [ "PC", "PlayStation", "Xbox", "Nintendo Switch", "Mobile" ],
+  "totalPlaytimeHours" : 1000,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",
+  "localizations" : [ ]
+}, {
+  "name" : "Among Us",
+  "developer" : "InnerSloth",
+  "year" : 2018,
+  "steamAppId" : "567890",
+  "genres" : [ "Party", "Social Deduction" ],
+  "publishers" : [ "InnerSloth" ],
+  "platforms" : [ "PC", "Mobile", "Nintendo Switch", "PlayStation", "Xbox" ],
+  "totalPlaytimeHours" : 50,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Among_Us_cover_art.jpg/250px-Among_Us_cover_art.jpg",
+  "localizations" : [ ]
+}, {
+  "name" : "PUBG: Battlegrounds",
+  "developer" : "PUBG Corporation",
+  "year" : 2017,
+  "steamAppId" : "678901",
+  "genres" : [ "Battle Royale", "Shooter" ],
+  "publishers" : [ "Krafton" ],
+  "platforms" : [ "PC", "PlayStation", "Xbox", "Mobile" ],
+  "totalPlaytimeHours" : 200,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Pubgbattlegrounds.png/250px-Pubgbattlegrounds.png",
+  "localizations" : [ ]
+}, {
+  "name" : "Cyberpunk 2077",
+  "developer" : "CD Projekt Red",
+  "year" : 2020,
+  "steamAppId" : "789012",
+  "genres" : [ "RPG", "FPS", "Open World" ],
+  "publishers" : [ "CD Projekt" ],
+  "platforms" : [ "PC", "PlayStation 5", "Xbox Series X/S" ],
+  "totalPlaytimeHours" : 80,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Cyberpunk_2077_box_art.jpg/250px-Cyberpunk_2077_box_art.jpg",
+  "localizations" : [ ]
+}, {
+  "name" : "Elden Ring",
+  "developer" : "FromSoftware",
+  "year" : 2022,
+  "steamAppId" : "890123",
+  "genres" : [ "Action RPG", "Open World" ],
+  "publishers" : [ "Bandai Namco", "FromSoftware" ],
+  "platforms" : [ "PC", "PlayStation 5", "PlayStation 4", "Xbox Series X/S", "Xbox One" ],
+  "totalPlaytimeHours" : 120,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Elden_Ring_Box_art.jpg/250px-Elden_Ring_Box_art.jpg",
+  "localizations" : [ {
+    "language" : "English",
+    "translators" : [ "Ryan Morris", "Emily Johnson" ],
+    "dubbingArtists" : [ "Paul Bandey", "Lindsay Seidel" ]
+  }, {
+    "language" : "Turkish",
+    "translators" : [ "Mehmet Can Korkut", "Ayşe Demir" ],
+    "dubbingArtists" : [ "Sercan Gidiş", "Zeynep Taşkın" ]
+  }, {
+    "language" : "Japanese",
+    "translators" : [ "Hiroshi Yamamoto" ],
+    "dubbingArtists" : [ "Kōichi Yamadera" ]
+  } ]
+}, {
+  "name" : "The Witcher 3: Wild Hunt",
+  "developer" : "CD Projekt Red",
+  "year" : 2015,
+  "steamAppId" : "292030",
+  "genres" : [ "RPG", "Open World" ],
+  "publishers" : [ "CD Projekt" ],
+  "platforms" : [ "PC", "PlayStation 4", "Xbox One" ],
+  "totalPlaytimeHours" : 150,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Witcher_3_cover_art.jpg/250px-Witcher_3_cover_art.jpg",
+  "localizations" : [ ]
+}, {
+  "name" : "League of Legends",
+  "developer" : "Riot Games",
+  "year" : 2009,
+  "steamAppId" : "123456",
+  "genres" : [ "MOBA", "Strategy" ],
+  "publishers" : [ "Riot Games" ],
+  "platforms" : [ "PC" ],
+  "totalPlaytimeHours" : 500,
+  "imagePath" : "image.jpeg",
+  "localizations" : [ ]
+}, {
+  "name" : "Counter-Strike 2",
+  "developer" : "Valve",
+  "year" : 2023,
+  "steamAppId" : "234567",
+  "genres" : [ "FPS", "Shooter" ],
+  "publishers" : [ "Valve" ],
+  "platforms" : [ "PC" ],
+  "totalPlaytimeHours" : 300,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/CS2_Cover_Art.jpg/220px-CS2_Cover_Art.jpg",
+  "localizations" : [ ]
+}, {
+  "name" : "Valorant",
+  "developer" : "Riot Games",
+  "year" : 2020,
+  "steamAppId" : "345678",
+  "genres" : [ "FPS", "Tactical Shooter" ],
+  "publishers" : [ "Riot Games" ],
+  "platforms" : [ "PC" ],
+  "totalPlaytimeHours" : 250,
+  "imagePath" : "image.jpeg",
+  "localizations" : [ ]
+}, {
+  "name" : "Minecraft",
+  "developer" : "Mojang Studios",
+  "year" : 2011,
+  "steamAppId" : "456789",
+  "genres" : [ "Sandbox", "Adventure" ],
+  "publishers" : [ "Xbox Game Studios" ],
+  "platforms" : [ "PC", "PlayStation", "Xbox", "Nintendo Switch", "Mobile" ],
+  "totalPlaytimeHours" : 1000,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png",
+  "localizations" : [ ]
+}, {
+  "name" : "Among Us",
+  "developer" : "InnerSloth",
+  "year" : 2018,
+  "steamAppId" : "567890",
+  "genres" : [ "Party", "Social Deduction" ],
+  "publishers" : [ "InnerSloth" ],
+  "platforms" : [ "PC", "Mobile", "Nintendo Switch", "PlayStation", "Xbox" ],
+  "totalPlaytimeHours" : 50,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Among_Us_cover_art.jpg/250px-Among_Us_cover_art.jpg",
+  "localizations" : [ ]
+}, {
+  "name" : "PUBG: Battlegrounds",
+  "developer" : "PUBG Corporation",
+  "year" : 2017,
+  "steamAppId" : "678901",
+  "genres" : [ "Battle Royale", "Shooter" ],
+  "publishers" : [ "Krafton" ],
+  "platforms" : [ "PC", "PlayStation", "Xbox", "Mobile" ],
+  "totalPlaytimeHours" : 200,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Pubgbattlegrounds.png/250px-Pubgbattlegrounds.png",
+  "localizations" : [ ]
+}, {
+  "name" : "Cyberpunk 2077",
+  "developer" : "CD Projekt Red",
+  "year" : 2020,
+  "steamAppId" : "789012",
+  "genres" : [ "RPG", "FPS", "Open World" ],
+  "publishers" : [ "CD Projekt" ],
+  "platforms" : [ "PC", "PlayStation 5", "Xbox Series X/S" ],
+  "totalPlaytimeHours" : 80,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Cyberpunk_2077_box_art.jpg/250px-Cyberpunk_2077_box_art.jpg",
+  "localizations" : [ ]
+}, {
+  "name" : "Elden Ring",
+  "developer" : "FromSoftware",
+  "year" : 2022,
+  "steamAppId" : "890123",
+  "genres" : [ "Action RPG", "Open World" ],
+  "publishers" : [ "Bandai Namco", "FromSoftware" ],
+  "platforms" : [ "PC", "PlayStation 5", "PlayStation 4", "Xbox Series X/S", "Xbox One" ],
+  "totalPlaytimeHours" : 120,
+  "imagePath" : "https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Elden_Ring_Box_art.jpg/250px-Elden_Ring_Box_art.jpg",
+  "localizations" : [ ]
+} ]

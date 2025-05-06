@@ -1,6 +1,7 @@
 package com.example.gamecollection;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,8 +14,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,9 +30,11 @@ public class Main extends Application {
     private ArrayList<Game> games = new ArrayList<>();
     private List<Game> filteredGames = new ArrayList<>();
     private GridPane gridPane = new GridPane();
+    private Stage stage;
 
     @Override
     public void start(Stage stage) {
+        this.stage = stage;
         listFiller();
         filteredGames = games;
         MenuBar menuBar = menuBar();
@@ -208,108 +216,6 @@ public class Main extends Application {
         eldenRing.addLocalization(englishLoc);
         eldenRing.addLocalization(turkishLoc);
         eldenRing.addLocalization(japaneseLoc);
-
-        Game witcher3x = new Game("The Witcher 3: Wild Hunt", "CD Projekt Red", 2015, "292030");
-        witcher3x.addGenre("RPG");
-        witcher3x.addGenre("Open World");
-        witcher3x.addPublisher("CD Projekt");
-        witcher3x.addPlatform("PC");
-        witcher3x.addPlatform("PlayStation 4");
-        witcher3x.addPlatform("Xbox One");
-        witcher3x.setTotalPlaytimeHours(150);
-        witcher3x.setImagePath("https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Witcher_3_cover_art.jpg/250px-Witcher_3_cover_art.jpg");
-        games.add(witcher3x);
-
-        Game lol1 = new Game("League of Legends", "Riot Games", 2009, "123456");
-        lol1.addGenre("MOBA");
-        lol1.addGenre("Strategy");
-        lol1.addPublisher("Riot Games");
-        lol1.addPlatform("PC");
-        lol1.setTotalPlaytimeHours(500);
-        //lol1.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/League_of_Legends_2019_vector.svg/250px-League_of_Legends_2019_vector.svg.png");
-        games.add(lol1);
-
-        Game cs2x = new Game("Counter-Strike 2", "Valve", 2023, "234567");
-        cs2x.addGenre("FPS");
-        cs2x.addGenre("Shooter");
-        cs2x.addPublisher("Valve");
-        cs2x.addPlatform("PC");
-        cs2x.setTotalPlaytimeHours(300);
-        cs2x.setImagePath("https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/CS2_Cover_Art.jpg/220px-CS2_Cover_Art.jpg");
-        games.add(cs2x);
-
-        Game valorant1 = new Game("Valorant", "Riot Games", 2020, "345678");
-        valorant1.addGenre("FPS");
-        valorant1.addGenre("Tactical Shooter");
-        valorant1.addPublisher("Riot Games");
-        valorant1.addPlatform("PC");
-        valorant1.setTotalPlaytimeHours(250);
-        //valorant1.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/220px-Valorant_logo_-_pink_color_version.svg.png");
-        games.add(valorant1);
-
-        Game minecraft1 = new Game("Minecraft", "Mojang Studios", 2011, "456789");
-        minecraft1.addGenre("Sandbox");
-        minecraft1.addGenre("Adventure");
-        minecraft1.addPublisher("Xbox Game Studios");
-        minecraft1.addPlatform("PC");
-        minecraft1.addPlatform("PlayStation");
-        minecraft1.addPlatform("Xbox");
-        minecraft1.addPlatform("Nintendo Switch");
-        minecraft1.addPlatform("Mobile");
-        minecraft1.setTotalPlaytimeHours(1000);
-        minecraft1.setImagePath("https://upload.wikimedia.org/wikipedia/en/thumb/b/b6/Minecraft_2024_cover_art.png/250px-Minecraft_2024_cover_art.png");
-        games.add(minecraft1);
-
-        Game amongUs1 = new Game("Among Us", "InnerSloth", 2018, "567890");
-        amongUs1.addGenre("Party");
-        amongUs1.addGenre("Social Deduction");
-        amongUs1.addPublisher("InnerSloth");
-        amongUs1.addPlatform("PC");
-        amongUs1.addPlatform("Mobile");
-        amongUs1.addPlatform("Nintendo Switch");
-        amongUs1.addPlatform("PlayStation");
-        amongUs1.addPlatform("Xbox");
-        amongUs1.setTotalPlaytimeHours(50);
-        amongUs1.setImagePath("https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Among_Us_cover_art.jpg/250px-Among_Us_cover_art.jpg");
-        games.add(amongUs1);
-
-        Game pubg1 = new Game("PUBG: Battlegrounds", "PUBG Corporation", 2017, "678901");
-        pubg1.addGenre("Battle Royale");
-        pubg1.addGenre("Shooter");
-        pubg1.addPublisher("Krafton");
-        pubg1.addPlatform("PC");
-        pubg1.addPlatform("PlayStation");
-        pubg1.addPlatform("Xbox");
-        pubg1.addPlatform("Mobile");
-        pubg1.setTotalPlaytimeHours(200);
-        pubg1.setImagePath("https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Pubgbattlegrounds.png/250px-Pubgbattlegrounds.png");
-        games.add(pubg1);
-
-        Game cyberpunk1 = new Game("Cyberpunk 2077", "CD Projekt Red", 2020, "789012");
-        cyberpunk1.addGenre("RPG");
-        cyberpunk1.addGenre("FPS");
-        cyberpunk1.addGenre("Open World");
-        cyberpunk1.addPublisher("CD Projekt");
-        cyberpunk1.addPlatform("PC");
-        cyberpunk1.addPlatform("PlayStation 5");
-        cyberpunk1.addPlatform("Xbox Series X/S");
-        cyberpunk1.setTotalPlaytimeHours(80);
-        cyberpunk1.setImagePath("https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Cyberpunk_2077_box_art.jpg/250px-Cyberpunk_2077_box_art.jpg");
-        games.add(cyberpunk1);
-
-        Game eldenRing1 = new Game("Elden Ring", "FromSoftware", 2022, "890123");
-        eldenRing1.addGenre("Action RPG");
-        eldenRing1.addGenre("Open World");
-        eldenRing1.addPublisher("Bandai Namco");
-        eldenRing1.addPublisher("FromSoftware");
-        eldenRing1.addPlatform("PC");
-        eldenRing1.addPlatform("PlayStation 5");
-        eldenRing1.addPlatform("PlayStation 4");
-        eldenRing1.addPlatform("Xbox Series X/S");
-        eldenRing1.addPlatform("Xbox One");
-        eldenRing1.setTotalPlaytimeHours(120);
-        eldenRing1.setImagePath("https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Elden_Ring_Box_art.jpg/250px-Elden_Ring_Box_art.jpg");
-        games.add(eldenRing1);
     }
 
     private HBox bottomBox() {
@@ -340,8 +246,131 @@ public class Main extends Application {
 
         Menu fileMenu = new Menu("File");
         MenuItem newGame = new MenuItem("New Game");
+        newGame.setOnAction(e -> {
+
+            Dialog<Game> dialog = new Dialog<>();
+            dialog.setTitle("Add New Game");
+            dialog.setHeaderText("Fill in the fields and press Add");
+
+            ButtonType addBtnType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+            dialog.getDialogPane().getButtonTypes().addAll(addBtnType, ButtonType.CANCEL);
+
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(20, 150, 10, 10));
+
+            TextField nameField       = new TextField();
+            TextField devField        = new TextField();
+            TextField yearField       = new TextField();
+            TextField steamIdField    = new TextField();
+            TextField playtimeField   = new TextField();
+            TextField imagePathField  = new TextField();
+            TextField genresField     = new TextField();
+            TextField publishersField = new TextField();
+            TextField platformsField  = new TextField();
+
+            nameField.setPromptText("Name");
+            devField.setPromptText("Developer");
+            yearField.setPromptText("Year (e.g. 2024)");
+            steamIdField.setPromptText("Steam App ID");
+            playtimeField.setPromptText("Playtime hours");
+            imagePathField.setPromptText("Image URL / path");
+            genresField.setPromptText("Genres (comma-sep.)");
+            publishersField.setPromptText("Publishers (comma-sep.)");
+            platformsField.setPromptText("Platforms (comma-sep.)");
+
+            int r = 0;
+            grid.addRow(r++, new Label("Name:"),       nameField);
+            grid.addRow(r++, new Label("Developer:"),  devField);
+            grid.addRow(r++, new Label("Year:"),       yearField);
+            grid.addRow(r++, new Label("Steam ID:"),   steamIdField);
+            grid.addRow(r++, new Label("Playtime:"),   playtimeField);
+            grid.addRow(r++, new Label("Image Path:"), imagePathField);
+            grid.addRow(r++, new Label("Genres:"),     genresField);
+            grid.addRow(r++, new Label("Publishers:"), publishersField);
+            grid.addRow(r++, new Label("Platforms:"),  platformsField);
+
+            dialog.getDialogPane().setContent(grid);
+
+            /* ———  “Add” düğmesini zorunlu alanlara göre etkinleştir / devre dışı bırak ——— */
+            Button addButton = (Button) dialog.getDialogPane().lookupButton(addBtnType);
+            addButton.setDisable(true);
+
+            ChangeListener<String> validator = (obs, oldVal, newVal) ->
+                    addButton.setDisable(nameField.getText().trim().isEmpty() ||
+                            devField.getText().trim().isEmpty());
+
+            nameField.textProperty().addListener(validator);
+            devField.textProperty().addListener(validator);
+
+            /* ———  Dialog sonucunu bir Game nesnesine dönüştür ——— */
+            dialog.setResultConverter(btn -> {
+                if (btn == addBtnType) {
+                    try {
+                        int year = Integer.parseInt(yearField.getText().trim());
+
+                        Game g = new Game(
+                                nameField.getText().trim(),
+                                devField.getText().trim(),
+                                year,
+                                steamIdField.getText().trim()
+                        );
+
+                        parseCsv(genresField.getText()).forEach(g::addGenre);
+                        parseCsv(publishersField.getText()).forEach(g::addPublisher);
+                        parseCsv(platformsField.getText()).forEach(g::addPlatform);
+
+                        if (!playtimeField.getText().trim().isEmpty())
+                            g.setTotalPlaytimeHours(Integer.parseInt(playtimeField.getText().trim()));
+
+                        if (!imagePathField.getText().trim().isEmpty())
+                            g.setImagePath(imagePathField.getText().trim());
+
+                        return g;
+
+                    } catch (NumberFormatException exNum) {
+                        new Alert(Alert.AlertType.ERROR,
+                                "Year and Playtime must be numeric!").showAndWait();
+                    }
+                }
+                return null;   // Cancel veya hata
+            });
+
+            dialog.showAndWait().ifPresent(game -> {
+                games.add(game);
+                filteredGames = games;
+                createGameGrid();
+            });
+        });
         MenuItem importJson = new MenuItem("Import JSON");
+        importJson.setOnAction(e -> {
+            FileChooser fc = new FileChooser();
+            fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON file","*json"));
+            File file = fc.showOpenDialog(stage);
+            if (file != null) {
+                games = JsonHandler.importGames(file);
+                createGameGrid(games);
+                if (games.isEmpty()) {
+                    showAlert("Error",null,"JSON file is null or invalid.");
+                } else {
+                    showAlert("Successful",null,"Games were imported successfully.");
+                }
+            }
+        });
         MenuItem exportJson = new MenuItem("Export JSON");
+        exportJson.setOnAction(e -> {
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            directoryChooser.setTitle("Select Export Folder");
+
+            File selectedDirectory = directoryChooser.showDialog(stage);
+
+            if (selectedDirectory != null) {
+                File exportFile = new File(selectedDirectory, "exportedGames.json");
+                JsonHandler.exportGames(games, exportFile);
+                showAlert("Successful", null, "Games were exported successfully.");
+            }
+        });
         fileMenu.getItems().addAll(newGame, importJson, exportJson);
 
         Menu editMenu = new Menu("Edit");
@@ -401,11 +430,7 @@ public class Main extends Application {
                     .collect(Collectors.toList());
 
             if (filteredGames.isEmpty()) {
-                Alert noResults = new Alert(Alert.AlertType.INFORMATION);
-                noResults.setTitle("No Results");
-                noResults.setHeaderText(null);
-                noResults.setContentText("No games found matching your search.");
-                noResults.showAndWait();
+                showAlert("No Results",null,"No games found matching your search.");
             } else {
                 createGameGrid(filteredGames);
             }
@@ -579,5 +604,19 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private static List<String> parseCsv(String text) {
+        return Arrays.stream(text.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());   // Java 11 uyumlu
+    }
+
+    private static void showAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, content, ButtonType.OK);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
     }
 }
