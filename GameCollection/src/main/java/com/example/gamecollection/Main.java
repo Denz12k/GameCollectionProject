@@ -357,6 +357,7 @@ public class Main extends Application {
                     showAlert("Successful",null,"Games were imported successfully.");
                 }
             }
+            filteredGames= games;
         });
         MenuItem exportJson = new MenuItem("Export JSON");
         exportJson.setOnAction(e -> {
@@ -610,7 +611,7 @@ public class Main extends Application {
         return Arrays.stream(text.split(","))
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
-                .collect(Collectors.toList());   // Java 11 uyumlu
+                .collect(Collectors.toList());
     }
 
     private static void showAlert(String title, String header, String content) {
