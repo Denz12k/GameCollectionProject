@@ -553,6 +553,7 @@ public class Main extends Application {
         clip.setArcHeight(10);
         imageView.setClip(clip);
 
+
         Label nameLabel = new Label("Game: " + game.getName());
         nameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
@@ -590,6 +591,126 @@ public class Main extends Application {
         yearLabel.setTextFill(Color.DARKGREEN);
 
         VBox vBox = new VBox(20, imageView,nameLabel, developerLabel, yearLabel, steamIdLabel, playtimeLabel, platformsLabel, genresLabel, publishersLabel, localizationsBox);
+
+        Button editBtn   = new Button("Edit Game");
+        Button deleteBtn = new Button("Delete Game");
+        HBox   btnBar    = new HBox(10, editBtn, deleteBtn);
+        btnBar.setAlignment(Pos.CENTER);
+        vBox.getChildren().add(btnBar);
+
+        deleteBtn.setOnAction(ev -> {
+            Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
+            conf.initOwner(detailStage);
+            conf.setTitle("Confirm Deletion");
+            conf.setHeaderText(null);
+            conf.setContentText(
+                    "Delete \"" + game.getName() + "\" ?"
+            );
+
+            conf.getButtonTypes().setAll(
+                    ButtonType.YES, ButtonType.CANCEL);
+
+            conf.showAndWait().ifPresent(bt -> {
+                if (bt == ButtonType.YES) {
+                    games.remove(game);
+                    filteredGames = games;
+                    createGameGrid();
+                    detailStage.close();
+                }
+            });
+        });
+        editBtn.setOnAction(ev -> {
+            Dialog<Game> dialog = new Dialog<>();
+            dialog.setTitle("Edit Game");
+            dialog.setHeaderText("Update the fields and press Save");
+
+            ButtonType saveBtnType =
+                    new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+            dialog.getDialogPane().getButtonTypes()
+                    .addAll(saveBtnType, ButtonType.CANCEL);
+
+            GridPane grid = new GridPane();
+            grid.setHgap(10); grid.setVgap(10);
+            grid.setPadding(new Insets(20, 150, 10, 10));
+
+            TextField nameF  = new TextField(game.getName());
+            TextField devF   = new TextField(game.getDeveloper());
+            TextField yearF  = new TextField(String.valueOf(game.getYear()));
+            TextField idF    = new TextField(game.getSteamAppId());
+            TextField playF  = new TextField(
+                    String.valueOf(game.getTotalPlaytimeHours()));
+            TextField imgF   = new TextField(game.getImagePath());
+            TextField genF   = new TextField(String.join(", ", game.getGenres()));
+            TextField pubF   = new TextField(String.join(", ", game.getPublishers()));
+            TextField platF  = new TextField(String.join(", ", game.getPlatforms()));
+
+            int r = 0;
+            grid.addRow(r++, new Label("Name:"),       nameF);
+            grid.addRow(r++, new Label("Developer:"),  devF);
+            grid.addRow(r++, new Label("Year:"),       yearF);
+            grid.addRow(r++, new Label("Steam ID:"),   idF);
+            grid.addRow(r++, new Label("Playtime:"),   playF);
+            grid.addRow(r++, new Label("Image Path:"), imgF);
+            grid.addRow(r++, new Label("Genres:"),     genF);
+            grid.addRow(r++, new Label("Publishers:"), pubF);
+            grid.addRow(r++, new Label("Platforms:"),  platF);
+
+            dialog.getDialogPane().setContent(grid);
+
+            dialog.setResultConverter(btn -> {
+                if (btn == saveBtnType) {
+                    try {
+                        game.setName(nameF.getText().trim());
+                        game.setDeveloper(devF.getText().trim());
+                        game.setYear(Integer.parseInt(yearF.getText().trim()));
+                        game.setSteamAppId(idF.getText().trim());
+                        game.setTotalPlaytimeHours(
+                                Integer.parseInt(playF.getText().trim()));
+                        game.setImagePath(imgF.getText().trim());
+                        game.setGenres(parseCsv(genF.getText()));
+                        game.setPublishers(parseCsv(pubF.getText()));
+                        game.setPlatforms(parseCsv(platF.getText()));
+                        return game;
+                    } catch (NumberFormatException ex) {
+                        new Alert(Alert.AlertType.ERROR,
+                                "Year and Playtime must be numeric!").showAndWait();
+                    }
+                }
+                return null;
+            });
+
+            dialog.showAndWait().ifPresent(updated -> {
+                createGameGrid();
+
+                nameLabel.setText("Game: " + updated.getName());
+                developerLabel.setText("Developer: " + updated.getDeveloper());
+                yearLabel.setText("Release Year: " + updated.getYear());
+                steamIdLabel.setText("Steam ID: " + updated.getSteamAppId());
+                playtimeLabel.setText("Playtime: "
+                        + updated.getTotalPlaytimeHours() + " hours");
+                imageView.setImage(new Image(updated.getImagePath(), true));
+
+                platformsLabel.setText("Platforms: "
+                        + String.join(", ", updated.getPlatforms()));
+                genresLabel.setText("Genres: "
+                        + String.join(", ", updated.getGenres()));
+                publishersLabel.setText("Publishers: "
+                        + String.join(", ", updated.getPublishers()));
+
+
+                localizationsBox.getChildren().clear();
+                int k = 0;
+                for (Game.Localization loc : updated.getLocalizations()) {
+                    if (k++ == 0) localizationsBox.getChildren()
+                            .add(new Label("Localizations:"));
+                    localizationsBox.getChildren().add(
+                            new Label("  - " + loc.getLanguage()
+                                    + " (Translators: " + String.join(", ", loc.getTranslators())
+                                    + ", Dubbing: "   + String.join(", ", loc.getDubbingArtists()) + ")"));
+                }
+            });
+
+        });
 
         vBox.setAlignment(Pos.CENTER);
         vBox.setPadding(new Insets(20));
