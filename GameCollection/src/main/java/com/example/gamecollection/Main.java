@@ -293,7 +293,7 @@ public class Main extends Application {
 
             dialog.getDialogPane().setContent(grid);
 
-            /* ———  “Add” düğmesini zorunlu alanlara göre etkinleştir / devre dışı bırak ——— */
+
             Button addButton = (Button) dialog.getDialogPane().lookupButton(addBtnType);
             addButton.setDisable(true);
 
@@ -304,7 +304,7 @@ public class Main extends Application {
             nameField.textProperty().addListener(validator);
             devField.textProperty().addListener(validator);
 
-            /* ———  Dialog sonucunu bir Game nesnesine dönüştür ——— */
+
             dialog.setResultConverter(btn -> {
                 if (btn == addBtnType) {
                     try {
@@ -334,7 +334,7 @@ public class Main extends Application {
                                 "Year and Playtime must be numeric!").showAndWait();
                     }
                 }
-                return null;   // Cancel veya hata
+                return null;
             });
 
             dialog.showAndWait().ifPresent(game -> {
@@ -374,17 +374,13 @@ public class Main extends Application {
         });
         fileMenu.getItems().addAll(newGame, importJson, exportJson);
 
-        Menu editMenu = new Menu("Edit");
-        MenuItem editGame = new MenuItem("Edit Game");
-        MenuItem deleteGame = new MenuItem("Delete Game");
-        editMenu.getItems().addAll(editGame, deleteGame);
 
         Menu helpMenu = new Menu("Help");
         MenuItem userManual = new MenuItem("User Manual");
         MenuItem about = new MenuItem("About");
         helpMenu.getItems().addAll(userManual, about);
 
-        menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu);
+        menuBar.getMenus().addAll(fileMenu, helpMenu);
         return menuBar;
     }
 
