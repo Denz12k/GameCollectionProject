@@ -440,37 +440,6 @@ public class Main extends Application {
 
         VBox searchArea = new VBox(10, searchField, searchButton);
 
-        searchButton.setOnAction(e -> {
-            String searchText = searchField.getText().trim().toLowerCase();
-
-            if (searchText.isEmpty()) {
-                createGameGrid();
-                filteredGames = games;
-                return;
-            }
-
-            filteredGames = games.stream()
-                    .filter(game -> {
-                        boolean nameMatch = game.getName().toLowerCase().contains(searchText.toLowerCase());
-                        boolean developerMatch = game.getDeveloper().toLowerCase().contains(searchText.toLowerCase());
-                        boolean steamIdMatch = game.getSteamAppId().equalsIgnoreCase(searchText);
-                        boolean yearMatch = false;
-                        try {
-                            int year = Integer.parseInt(searchText);
-                            yearMatch = (game.getYear() == year);
-                        } catch (NumberFormatException ex) {
-                        }
-                        return nameMatch || developerMatch || steamIdMatch || yearMatch;
-                    })
-                    .collect(Collectors.toList());
-
-            if (filteredGames.isEmpty()) {
-                showAlert("No Results",null,"No games found matching your search.");
-            } else {
-                createGameGrid(filteredGames);
-            }
-        });
-
         searchField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 searchButton.fire();
@@ -486,22 +455,18 @@ public class Main extends Application {
         CheckBox xboxCheckBox = new CheckBox("Xbox");
         platformBox.getChildren().addAll(platformLabel, pcCheckBox, psCheckBox, xboxCheckBox);
 
-        VBox featuresBox = new VBox(5);
-        featuresBox.setAlignment(Pos.TOP_LEFT);
-        Label featuresLabel = new Label("Game Features");
+        VBox featuresAndGenresBox = new VBox(5);
+        featuresAndGenresBox.setAlignment(Pos.TOP_LEFT);
+        Label featuresLabel = new Label("Game Features And Genres");
         featuresLabel.setStyle("-fx-font-weight: bold;");
         CheckBox multiplayerCheckBox = new CheckBox("Multiplayer");
         CheckBox singlePlayerCheckBox = new CheckBox("Single-player");
         CheckBox onlineCheckBox = new CheckBox("Online");
         CheckBox coopCheckBox = new CheckBox("Co-op");
         CheckBox openWorldCheckBox = new CheckBox("Open-world");
-        featuresBox.getChildren().addAll(featuresLabel, multiplayerCheckBox, singlePlayerCheckBox,
+        featuresAndGenresBox.getChildren().addAll(featuresLabel, multiplayerCheckBox, singlePlayerCheckBox,
                 onlineCheckBox, coopCheckBox, openWorldCheckBox);
 
-        VBox genreBox = new VBox(5);
-        genreBox.setAlignment(Pos.TOP_LEFT);
-        Label genreLabel = new Label("Game Genres");
-        genreLabel.setStyle("-fx-font-weight: bold;");
         CheckBox rpgCheckBox = new CheckBox("RPG (Role-Playing Game)");
         CheckBox turnBasedCheckBox = new CheckBox("Turn-based");
         CheckBox actionCheckBox = new CheckBox("Action");
@@ -512,12 +477,76 @@ public class Main extends Application {
         CheckBox fpsCheckBox = new CheckBox("FPS (First Person Shooter)");
         CheckBox racingCheckBox = new CheckBox("Racing");
         CheckBox fightingCheckBox = new CheckBox("Fighting");
-        genreBox.getChildren().addAll(genreLabel, rpgCheckBox, turnBasedCheckBox,
+        featuresAndGenresBox.getChildren().addAll(rpgCheckBox, turnBasedCheckBox,
                 actionCheckBox, adventureCheckBox, strategyCheckBox, puzzleCheckBox,
                 simulationCheckBox, fpsCheckBox, racingCheckBox, fightingCheckBox);
 
+        searchButton.setOnAction(e -> {
+
+            List<String> platformFilters = new ArrayList<>();
+            if (pcCheckBox.isSelected())   platformFilters.add("pc");
+            if (psCheckBox.isSelected())   platformFilters.add("playstation");
+            if (xboxCheckBox.isSelected()) platformFilters.add("xbox");
+
+            List<String> genreFilters = new ArrayList<>();
+            if (rpgCheckBox.isSelected())         genreFilters.add("RPG");
+            if (turnBasedCheckBox.isSelected())   genreFilters.add("Turn-based");
+            if (actionCheckBox.isSelected())      genreFilters.add("Action");
+            if (adventureCheckBox.isSelected())   genreFilters.add("Adventure");
+            if (strategyCheckBox.isSelected())    genreFilters.add("Strategy");
+            if (puzzleCheckBox.isSelected())      genreFilters.add("Puzzle");
+            if (simulationCheckBox.isSelected())  genreFilters.add("Simulation");
+            if (fpsCheckBox.isSelected())         genreFilters.add("FPS");
+            if (racingCheckBox.isSelected())      genreFilters.add("Racing");
+            if (fightingCheckBox.isSelected())    genreFilters.add("Fighting");
+
+            if (multiplayerCheckBox.isSelected()) genreFilters.add("Multiplayer");
+            if (singlePlayerCheckBox.isSelected()) genreFilters.add("Single-player");
+            if (onlineCheckBox.isSelected())      genreFilters.add("Online");
+            if (coopCheckBox.isSelected())        genreFilters.add("Co-op");
+            if (openWorldCheckBox.isSelected())   genreFilters.add("Open World");
+
+            String searchText = searchField.getText().trim().toLowerCase();
+
+            filteredGames = games.stream()
+                    .filter(game -> {
+                        boolean textMatch;
+                        if (searchText.isEmpty()) {
+                            textMatch = true;
+                        } else {
+                            boolean nameMatch      = game.getName().toLowerCase().contains(searchText);
+                            boolean developerMatch = game.getDeveloper().toLowerCase().contains(searchText);
+                            boolean steamIdMatch   = game.getSteamAppId().equalsIgnoreCase(searchText);
+                            boolean yearMatch      = false;
+                            try { yearMatch = (game.getYear() == Integer.parseInt(searchText)); }
+                            catch (NumberFormatException ignored) {}
+                            textMatch = nameMatch || developerMatch || steamIdMatch || yearMatch;
+                        }
+                        boolean platformMatch =
+                                platformFilters.isEmpty() ||
+                                        game.getPlatforms().stream().anyMatch(p ->
+                                                platformFilters.stream().anyMatch(f ->
+                                                        p.toLowerCase().contains(f)));
+                        boolean genreMatch =
+                                genreFilters.isEmpty() ||
+                                        game.getGenres().stream().anyMatch(g ->
+                                                genreFilters.stream().anyMatch(f ->
+                                                        g.equalsIgnoreCase(f)));
+
+                        return textMatch && platformMatch && genreMatch;
+                    })
+                    .collect(Collectors.toList());
+
+            if (filteredGames.isEmpty()) {
+                showAlert("No Results", null,
+                        "No games found matching your search/filters.");
+            }
+            createGameGrid(filteredGames);
+        });
+
         searchBox.getChildren().addAll(titleLabel, searchArea,
-                platformBox, featuresBox, genreBox);
+                platformBox, featuresAndGenresBox);
+
         return searchBox;
     }
 
