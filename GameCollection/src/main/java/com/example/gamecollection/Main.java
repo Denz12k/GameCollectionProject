@@ -406,7 +406,7 @@ userManual.setOnAction(e -> {
     }
 });
 
-helpMenu.getItems().addAll(userManual, about);
+
 
 
         helpMenu.getItems().addAll(userManual, about);
