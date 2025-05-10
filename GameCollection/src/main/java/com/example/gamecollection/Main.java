@@ -17,7 +17,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -378,11 +378,43 @@ public class Main extends Application {
         Menu helpMenu = new Menu("Help");
         MenuItem userManual = new MenuItem("User Manual");
         MenuItem about = new MenuItem("About");
+
+
+about.setOnAction(e -> {
+    try {
+        File pdfFile = new File(getClass().getResource("/Game_Collection_About_CE216.pdf").toURI());
+        if (pdfFile.exists()) {
+            getHostServices().showDocument(pdfFile.toURI().toString());
+        } else {
+            showAlert("File Not Found", null, "PDF not found:\n" + pdfFile.getAbsolutePath());
+        }
+    } catch (Exception ex) {
+        showAlert("Error", null, "An error occurred:\n" + ex.getMessage());
+    }
+});
+
+userManual.setOnAction(e -> {
+    try {
+        File pdfFile = new File(getClass().getResource("/Game_Collection_Visual_User_Manual_Complete__.pdf").toURI());
+        if (pdfFile.exists()) {
+            getHostServices().showDocument(pdfFile.toURI().toString());
+        } else {
+            showAlert("File Not Found", null, "PDF not found:\n" + pdfFile.getAbsolutePath());
+        }
+    } catch (Exception ex) {
+        showAlert("Error", null, "An error occurred:\n" + ex.getMessage());
+    }
+});
+
+helpMenu.getItems().addAll(userManual, about);
+
+
         helpMenu.getItems().addAll(userManual, about);
 
         menuBar.getMenus().addAll(fileMenu, helpMenu);
         return menuBar;
     }
+    
 
     private VBox leftVBox() {
         VBox searchBox = new VBox(20);
