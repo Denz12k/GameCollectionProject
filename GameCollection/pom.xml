@@ -16,7 +16,6 @@
   </properties>
 
   <dependencies>
-    <!-- JavaFX Modülleri -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
@@ -42,8 +41,6 @@
       <artifactId>javafx-media</artifactId>
       <version>${javafx.version}</version>
     </dependency>
-
-    <!-- UI & Ekstra Kütüphaneler -->
     <dependency>
       <groupId>org.controlsfx</groupId>
       <artifactId>controlsfx</artifactId>
@@ -103,8 +100,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-
-    <!-- Test Bağımlılıkları -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>

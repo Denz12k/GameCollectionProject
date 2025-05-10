@@ -87,8 +87,18 @@ public class Main extends Application {
             createGameGrid(recentGames);
         });
 
-        HBox hbox = new HBox(10, sortOptions, sortButton);
-        hbox.setAlignment(Pos.CENTER_RIGHT);
+        Label infoLabel = new Label("🔍 Click on a game cover to view its details.");
+        infoLabel.setStyle(
+                "-fx-font-size: 14px;" +
+                        "-fx-text-fill: #2a2a2a;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-padding: 5 10 10 120;"
+        );
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        HBox hbox = new HBox(10, infoLabel, spacer, sortOptions, sortButton);
         hbox.setPadding(new Insets(10));
 
         return hbox;
@@ -380,41 +390,37 @@ public class Main extends Application {
         MenuItem about = new MenuItem("About");
 
 
-about.setOnAction(e -> {
-    try {
-        File pdfFile = new File(getClass().getResource("/Game_Collection_About_CE216.pdf").toURI());
-        if (pdfFile.exists()) {
-            getHostServices().showDocument(pdfFile.toURI().toString());
-        } else {
-            showAlert("File Not Found", null, "PDF not found:\n" + pdfFile.getAbsolutePath());
-        }
-    } catch (Exception ex) {
-        showAlert("Error", null, "An error occurred:\n" + ex.getMessage());
-    }
-});
+        about.setOnAction(e -> {
+            try {
+                File pdfFile = new File(getClass().getResource("/Game_Collection_About_CE216.pdf").toURI());
+                if (pdfFile.exists()) {
+                    getHostServices().showDocument(pdfFile.toURI().toString());
+                } else {
+                    showAlert("File Not Found", null, "PDF not found:\n" + pdfFile.getAbsolutePath());
+                }
+            } catch (Exception ex) {
+                showAlert("Error", null, "An error occurred:\n" + ex.getMessage());
+            }
+        });
 
-userManual.setOnAction(e -> {
-    try {
-        File pdfFile = new File(getClass().getResource("/Game_Collection_Visual_User_Manual_Complete__.pdf").toURI());
-        if (pdfFile.exists()) {
-            getHostServices().showDocument(pdfFile.toURI().toString());
-        } else {
-            showAlert("File Not Found", null, "PDF not found:\n" + pdfFile.getAbsolutePath());
-        }
-    } catch (Exception ex) {
-        showAlert("Error", null, "An error occurred:\n" + ex.getMessage());
-    }
-});
-
-
-
+        userManual.setOnAction(e -> {
+            try {
+                File pdfFile = new File(getClass().getResource("/Game_Collection_Visual_User_Manual_Complete__.pdf").toURI());
+                if (pdfFile.exists()) {
+                    getHostServices().showDocument(pdfFile.toURI().toString());
+                } else {
+                    showAlert("File Not Found", null, "PDF not found:\n" + pdfFile.getAbsolutePath());
+                }
+            } catch (Exception ex) {
+                showAlert("Error", null, "An error occurred:\n" + ex.getMessage());
+            }
+        });
 
         helpMenu.getItems().addAll(userManual, about);
 
         menuBar.getMenus().addAll(fileMenu, helpMenu);
         return menuBar;
     }
-    
 
     private VBox leftVBox() {
         VBox searchBox = new VBox(20);
@@ -581,7 +587,6 @@ userManual.setOnAction(e -> {
         clip.setArcHeight(10);
         imageView.setClip(clip);
 
-
         Label nameLabel = new Label("Game: " + game.getName());
         nameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
@@ -618,7 +623,8 @@ userManual.setOnAction(e -> {
         nameLabel.setTextFill(Color.DARKBLUE);
         yearLabel.setTextFill(Color.DARKGREEN);
 
-        VBox vBox = new VBox(20, imageView,nameLabel, developerLabel, yearLabel, steamIdLabel, playtimeLabel, platformsLabel, genresLabel, publishersLabel, localizationsBox);
+        VBox vBox = new VBox(20, imageView,nameLabel, developerLabel, yearLabel, steamIdLabel, playtimeLabel,
+                platformsLabel, genresLabel, publishersLabel, localizationsBox);
 
         Button editBtn   = new Button("Edit Game");
         Button deleteBtn = new Button("Delete Game");
