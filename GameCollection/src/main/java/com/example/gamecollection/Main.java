@@ -14,9 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import javafx.stage.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -391,35 +389,147 @@ public class Main extends Application {
 
 
         about.setOnAction(e -> {
-            try {
-                File pdfFile = new File(getClass().getResource("/Game_Collection_About_CE216.pdf").toURI());
-                if (pdfFile.exists()) {
-                    getHostServices().showDocument(pdfFile.toURI().toString());
-                } else {
-                    showAlert("File Not Found", null, "PDF not found:\n" + pdfFile.getAbsolutePath());
-                }
-            } catch (Exception ex) {
-                showAlert("Error", null, "An error occurred:\n" + ex.getMessage());
-            }
-        });
+            Stage aboutStage = new Stage();
+            aboutStage.setTitle("About Game Collection");
 
-        userManual.setOnAction(e -> {
-            try {
-                File pdfFile = new File(getClass().getResource("/Game_Collection_Visual_User_Manual_Complete__.pdf").toURI());
-                if (pdfFile.exists()) {
-                    getHostServices().showDocument(pdfFile.toURI().toString());
-                } else {
-                    showAlert("File Not Found", null, "PDF not found:\n" + pdfFile.getAbsolutePath());
-                }
-            } catch (Exception ex) {
-                showAlert("Error", null, "An error occurred:\n" + ex.getMessage());
-            }
+            Label appTitle = new Label("🎮 Game Collection Library");
+            appTitle.setFont(Font.font("Arial", FontWeight.BOLD, 22));
+
+            Label version = new Label("Version 1.0");
+            version.setFont(Font.font("Arial", 14));
+
+            Label developer = new Label("Developed by:\n-Deniz Karaman\n-Emre Taşkın\n-Emin Yılmaz\n-Bekir Can Türkmen");
+            developer.setFont(Font.font("Arial", 14));
+
+            Label description = new Label(
+                    "This JavaFX application allows users to manage their game collection.\n" +
+                            "You can add, edit, search, filter, and sort games, and export your library as a JSON file.\n" +
+                            "It supports multiple platforms, genres, and even localization info for games."
+            );
+            description.setFont(Font.font("Arial", 13));
+            description.setWrapText(true);
+
+            Label contact = new Label("📧 Contact: emretaskin04@gmail.com\n");
+            contact.setFont(Font.font("Arial", 13));
+
+            VBox layout = new VBox(10, appTitle, version, developer, description, contact);
+            layout.setAlignment(Pos.CENTER);
+            layout.setPadding(new Insets(20));
+            layout.setPrefWidth(400);
+
+            Scene scene = new Scene(layout);
+            aboutStage.initModality(Modality.APPLICATION_MODAL);
+            aboutStage.setScene(scene);
+            aboutStage.showAndWait();
         });
+        userManual.setOnAction(e -> {
+            Stage manualStage = new Stage();
+            manualStage.setTitle("📘 Game Collection - User Manual");
+
+            VBox contentBox = new VBox(20);
+            contentBox.setPadding(new Insets(20));
+            contentBox.setStyle("-fx-background-color: #f9f9f9;");
+            contentBox.setAlignment(Pos.TOP_LEFT);
+
+            Label title = new Label("📘 Game Collection Library - User Manual");
+            title.setFont(Font.font("Arial", FontWeight.BOLD, 22));
+            title.setTextFill(Color.DARKBLUE);
+
+            // Collapsible sections
+            TitledPane overview = createSection("🗂 1. Overview", """
+        This application allows users to manage a personal game collection.\s
+        You can add, edit, delete, search, sort, and filter your game list.
+       \s""");
+
+            TitledPane addingGame = createSection("➕ 2. Adding a Game", """
+        Go to File → New Game and fill in the game details.\s
+        Required fields: Name, Developer, Year, Steam ID.
+        Optional: Playtime, Genres, Platforms, Publishers, Image URL.
+        \s""");
+
+            TitledPane importExport = createSection("📤 3. Importing & Exporting", """
+        Import or export your game collection as JSON files.\s
+        Use File → Import JSON or File → Export JSON.
+        \s""");
+
+            TitledPane searchFilter = createSection("🔍 4. Searching & Filtering", """
+        Use the search bar to find games by name, developer, or year.\s
+        Use platform and genre checkboxes to refine results.
+        \s""");
+
+            TitledPane sorting = createSection("🔃 5. Sorting Games", """
+        Sort your game list using the combo box:\s
+        By name, year, developer, playtime, genre count, etc.
+       \s""");
+
+            TitledPane details = createSection("📝 6. Viewing & Editing Details", """
+        Click a game's image to view full details.\s
+        From there, you can edit or delete the selected game.
+        \s""");
+
+            // PDF Link
+            Hyperlink pdfLink = new Hyperlink("📄 Click here to open the full PDF Manual");
+            pdfLink.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+            pdfLink.setStyle("-fx-text-fill: #0077cc; -fx-underline: true;");
+            pdfLink.setOnAction(ev -> {
+                try {
+                    File pdf = new File(getClass().getResource("/Game_Collection_Visual_User_Manual_Complete__.pdf").toURI());
+                    if (pdf.exists()) {
+                        getHostServices().showDocument(pdf.toURI().toString());
+                    } else {
+                        showAlert("File Not Found", null, "Could not find the User Manual PDF.");
+                    }
+                } catch (Exception ex) {
+                    showAlert("Error", null, "Failed to open PDF:\n" + ex.getMessage());
+                }
+            });
+
+            // Back button
+            Button backBtn = new Button("⬅ Back to Main Menu");
+            backBtn.setFont(Font.font("Arial", FontWeight.BOLD, 13));
+            backBtn.setStyle("-fx-background-color: #eeeeee;");
+            backBtn.setOnAction(eg -> manualStage.close());
+
+            VBox bottomBox = new VBox(10, new Separator(), pdfLink, backBtn);
+            bottomBox.setAlignment(Pos.CENTER_LEFT);
+
+            contentBox.getChildren().addAll(
+                    title,
+                    overview, addingGame, importExport,
+                    searchFilter, sorting, details,
+                    bottomBox
+            );
+
+            ScrollPane scrollPane = new ScrollPane(contentBox);
+            scrollPane.setFitToWidth(true);
+            scrollPane.setStyle("-fx-background: #f9f9f9;");
+
+            Scene scene = new Scene(scrollPane, 640, 580);
+            manualStage.setScene(scene);
+            manualStage.show();
+                });
+
+
 
         helpMenu.getItems().addAll(userManual, about);
-
         menuBar.getMenus().addAll(fileMenu, helpMenu);
         return menuBar;
+    }
+
+    private TitledPane createSection(String title, String bodyText) {
+        Label body = new Label(bodyText);
+        body.setWrapText(true);
+        body.setFont(Font.font("Arial", 13));
+        body.setStyle("-fx-text-fill: #333333;");
+
+        VBox container = new VBox(body);
+        container.setPadding(new Insets(10));
+        container.setStyle("-fx-background-color: #ffffff; -fx-border-color: #dddddd; -fx-border-radius: 5;");
+
+        TitledPane pane = new TitledPane(title, container);
+        pane.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        pane.setExpanded(false);
+        return pane;
     }
 
     private VBox leftVBox() {
