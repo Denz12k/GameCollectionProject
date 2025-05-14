@@ -15,12 +15,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.*;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main extends Application {
@@ -107,6 +103,7 @@ public class Main extends Application {
         witcher3.addGenre("RPG");
         witcher3.addGenre("Open World");
         witcher3.addPublisher("CD Projekt");
+        witcher3.addGenre("Single-player");
         witcher3.addPlatform("PC");
         witcher3.addPlatform("PlayStation 4");
         witcher3.addPlatform("Xbox One");
@@ -116,6 +113,9 @@ public class Main extends Application {
 
         Game lol = new Game("League of Legends", "Riot Games", 2009, "123456");
         lol.addGenre("MOBA");
+        lol.addGenre("MultiPlayer");
+        lol.addGenre("Co-op");
+        lol.addGenre("Online");
         lol.addGenre("Strategy");
         lol.addPublisher("Riot Games");
         lol.addPlatform("PC");
@@ -127,26 +127,35 @@ public class Main extends Application {
         cs2.addGenre("FPS");
         cs2.addGenre("Shooter");
         cs2.addPublisher("Valve");
+        cs2.addGenre("Co-op");
+        cs2.addGenre("Online");
         cs2.addPlatform("PC");
+        cs2.addGenre("MultiPlayer");
         cs2.setTotalPlaytimeHours(300);
         cs2.setImagePath("https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/CS2_Cover_Art.jpg/220px-CS2_Cover_Art.jpg");
         games.add(cs2);
 
         Game valorant = new Game("Valorant", "Riot Games", 2020, "345678");
         valorant.addGenre("FPS");
+        valorant.addGenre("MultiPlayer");
+        valorant.addGenre("Strategy");
         valorant.addGenre("Tactical Shooter");
         valorant.addPublisher("Riot Games");
         valorant.addPlatform("PC");
+        valorant.addGenre("Online");
         valorant.setTotalPlaytimeHours(250);
-        valorant.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/220px-Valorant_logo_-_pink_color_version.svg.png");
+        valorant.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-pink_color_version.svg/220px-Valorant_logo-_pink_color_version.svg.png");
         games.add(valorant);
 
         Game minecraft = new Game("Minecraft", "Mojang Studios", 2011, "456789");
         minecraft.addGenre("Sandbox");
         minecraft.addGenre("Adventure");
+        minecraft.addGenre("Single-player");
         minecraft.addPublisher("Xbox Game Studios");
         minecraft.addPlatform("PC");
         minecraft.addPlatform("PlayStation");
+        minecraft.addGenre("Online");
+        minecraft.addGenre("Simulation");
         minecraft.addPlatform("Xbox");
         minecraft.addPlatform("Nintendo Switch");
         minecraft.addPlatform("Mobile");
@@ -162,7 +171,9 @@ public class Main extends Application {
         amongUs.addPlatform("Mobile");
         amongUs.addPlatform("Nintendo Switch");
         amongUs.addPlatform("PlayStation");
+        amongUs.addGenre("Online");
         amongUs.addPlatform("Xbox");
+        amongUs.addGenre("MultiPlayer");
         amongUs.setTotalPlaytimeHours(50);
         amongUs.setImagePath("https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Among_Us_cover_art.jpg/250px-Among_Us_cover_art.jpg");
         games.add(amongUs);
@@ -173,14 +184,18 @@ public class Main extends Application {
         pubg.addPublisher("Krafton");
         pubg.addPlatform("PC");
         pubg.addPlatform("PlayStation");
+        pubg.addGenre("Online");
         pubg.addPlatform("Xbox");
         pubg.addPlatform("Mobile");
+        pubg.addGenre("MultiPlayer");
         pubg.setTotalPlaytimeHours(200);
         pubg.setImagePath("https://upload.wikimedia.org/wikipedia/en/thumb/9/9f/Pubgbattlegrounds.png/250px-Pubgbattlegrounds.png");
         games.add(pubg);
 
         Game cyberpunk = new Game("Cyberpunk 2077", "CD Projekt Red", 2020, "789012");
         cyberpunk.addGenre("RPG");
+        cyberpunk.addGenre("Action");
+        cyberpunk.addGenre("Single-player");
         cyberpunk.addGenre("FPS");
         cyberpunk.addGenre("Open World");
         cyberpunk.addPublisher("CD Projekt");
@@ -197,7 +212,9 @@ public class Main extends Application {
         eldenRing.addPublisher("Bandai Namco");
         eldenRing.addPublisher("FromSoftware");
         eldenRing.addPlatform("PC");
+        eldenRing.addGenre("Single-player");
         eldenRing.addPlatform("PlayStation 5");
+        eldenRing.addGenre("Action");
         eldenRing.addPlatform("PlayStation 4");
         eldenRing.addPlatform("Xbox Series X/S");
         eldenRing.addPlatform("Xbox One");
@@ -208,22 +225,165 @@ public class Main extends Application {
         Game.Localization englishLoc = new Game.Localization("English");
         englishLoc.addTranslator("Ryan Morris");
         englishLoc.addTranslator("Emily Johnson");
-        englishLoc.addDubbingArtist("Paul Bandey"); // Godrick seslendirmen
-        englishLoc.addDubbingArtist("Lindsay Seidel"); // Melina seslendirmen
+        englishLoc.addDubbingArtist("Paul Bandey");
+        englishLoc.addDubbingArtist("Lindsay Seidel");
 
         Game.Localization turkishLoc = new Game.Localization("Turkish");
         turkishLoc.addTranslator("Mehmet Can Korkut");
         turkishLoc.addTranslator("Ayşe Demir");
-        turkishLoc.addDubbingArtist("Sercan Gidiş"); // Godrick seslendirmen
-        turkishLoc.addDubbingArtist("Zeynep Taşkın"); // Melina seslendirmen
+        turkishLoc.addDubbingArtist("Sercan Gidiş");
+        turkishLoc.addDubbingArtist("Zeynep Taşkın");
 
         Game.Localization japaneseLoc = new Game.Localization("Japanese");
         japaneseLoc.addTranslator("Hiroshi Yamamoto");
-        japaneseLoc.addDubbingArtist("Kōichi Yamadera"); // Godrick seslendirmen
+        japaneseLoc.addDubbingArtist("Kōichi Yamadera");
 
         eldenRing.addLocalization(englishLoc);
         eldenRing.addLocalization(turkishLoc);
         eldenRing.addLocalization(japaneseLoc);
+
+        Game granTurismo = new Game("Gran Turismo 7", "Polyphony Digital", 2022, "200001");
+        granTurismo.addGenre("Racing");
+        granTurismo.addGenre("Simulation");
+        granTurismo.addGenre("Single-player");
+        granTurismo.addPublisher("Sony Interactive Entertainment");
+        granTurismo.addPlatform("PlayStation 5");
+        granTurismo.setTotalPlaytimeHours(60);
+        granTurismo.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Gran_Turismo_7_logo.svg/500px-Gran_Turismo_7_logo.svg.png");
+        games.add(granTurismo);
+
+        Game civilizationVI = new Game("Civilization VI", "Firaxis Games", 2016, "200002");
+        civilizationVI.addGenre("Strategy");
+        civilizationVI.addGenre("Turn-based");
+        civilizationVI.addGenre("Simulation");
+        civilizationVI.addGenre("Single-player");
+        civilizationVI.addPublisher("2K Games");
+        civilizationVI.addPlatform("PC");
+        civilizationVI.addPlatform("Nintendo Switch");
+        civilizationVI.setTotalPlaytimeHours(200);
+        civilizationVI.setImagePath("https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/289070/header.jpg?t=1740607040");
+        games.add(civilizationVI);
+
+        Game streetFighter6 = new Game("Street Fighter 6", "Capcom", 2023, "200003");
+        streetFighter6.addGenre("Fighting");
+        streetFighter6.addGenre("Multiplayer");
+        streetFighter6.addGenre("Online");
+        streetFighter6.addPublisher("Capcom");
+        streetFighter6.addPlatform("PC");
+        streetFighter6.addPlatform("PlayStation 5");
+        streetFighter6.setTotalPlaytimeHours(40);
+        streetFighter6.setImagePath("https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1364780/header.jpg?t=1745814264");
+        games.add(streetFighter6);
+
+        Game portal2 = new Game("Portal 2", "Valve", 2011, "200004");
+        portal2.addGenre("Puzzle");
+        portal2.addGenre("Co-op");
+        portal2.addGenre("Single-player");
+        portal2.addPublisher("Valve");
+        portal2.addPlatform("PC");
+        portal2.addPlatform("Xbox 360");
+        portal2.setTotalPlaytimeHours(12);
+        portal2.setImagePath("https://upload.wikimedia.org/wikipedia/en/f/f9/Portal2cover.jpg");
+        games.add(portal2);
+
+        Game xcom2 = new Game("XCOM 2", "Firaxis Games", 2016, "200005");
+        xcom2.addGenre("Strategy");
+        xcom2.addGenre("Turn-based");
+        xcom2.addGenre("Single-player");
+        xcom2.addPublisher("2K Games");
+        xcom2.addPlatform("PC");
+        xcom2.setTotalPlaytimeHours(60);
+        xcom2.setImagePath("https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/268500/header.jpg?t=1646157374");
+        games.add(xcom2);
+
+        Game theSims4 = new Game("The Sims 4", "Maxis", 2014, "200006");
+        theSims4.addGenre("Simulation");
+        theSims4.addGenre("Single-player");
+        theSims4.addPublisher("Electronic Arts");
+        theSims4.addPlatform("PC");
+        theSims4.addPlatform("PlayStation 4");
+        theSims4.setTotalPlaytimeHours(100);
+        theSims4.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Sims_4_logo.svg/500px-Sims_4_logo.svg.png");
+        games.add(theSims4);
+
+        Game tekken8 = new Game("Tekken 8", "Bandai Namco", 2024, "200007");
+        tekken8.addGenre("Fighting");
+        tekken8.addGenre("Multiplayer");
+        tekken8.addGenre("Online");
+        tekken8.addPublisher("Bandai Namco");
+        tekken8.addPlatform("PC");
+        tekken8.addPlatform("PlayStation 5");
+        tekken8.setTotalPlaytimeHours(35);
+        tekken8.setImagePath("https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1778820/472b3a735c663dd75b009dcd1d3c861958302f72/header.jpg?t=1743744777");
+        games.add(tekken8);
+
+        Game assettoCorsa = new Game("Assetto Corsa Competizione", "Kunos Simulazioni", 2019, "890124");
+        assettoCorsa.addGenre("Racing");
+        assettoCorsa.addGenre("Simulation");
+        assettoCorsa.addGenre("Multiplayer");
+        assettoCorsa.addPlatform("PC");
+        assettoCorsa.addPlatform("PlayStation 5");
+        assettoCorsa.addPlatform("Xbox Series X/S");
+        assettoCorsa.setTotalPlaytimeHours(90);
+        assettoCorsa.setImagePath("https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/244210/header.jpg?t=1730473196");
+        games.add(assettoCorsa);
+
+        Game.Localization enLocAC = new Game.Localization("English");
+        enLocAC.addTranslator("Sarah Bennett");
+        enLocAC.addDubbingArtist("James Carter");
+
+        Game.Localization deLocAC = new Game.Localization("German");
+        deLocAC.addTranslator("Lukas Schneider");
+        deLocAC.addDubbingArtist("Anna Klein");
+
+        Game.Localization trLocAC = new Game.Localization("Turkish");
+        trLocAC.addTranslator("Emir Yılmaz");
+        trLocAC.addDubbingArtist("Burak Aydın");
+
+        assettoCorsa.addLocalization(enLocAC);
+        assettoCorsa.addLocalization(deLocAC);
+        assettoCorsa.addLocalization(trLocAC);
+
+        Game fireEmblem = new Game("Fire Emblem: Three Houses", "Intelligent Systems", 2019, "890125");
+        fireEmblem.addGenre("Strategy");
+        fireEmblem.addGenre("Turn-based");
+        fireEmblem.addGenre("Tactical RPG");
+        fireEmblem.addPlatform("Nintendo Switch");
+        fireEmblem.addPublisher("Nintendo");
+        fireEmblem.setTotalPlaytimeHours(75);
+        games.add(fireEmblem);
+
+        Game.Localization enLocFE = new Game.Localization("English");
+        enLocFE.addTranslator("Michael Thomas");
+        enLocFE.addDubbingArtist("Erica Mendez");
+
+        Game.Localization jpLocFE = new Game.Localization("Japanese");
+        jpLocFE.addTranslator("Takeshi Nakamura");
+        jpLocFE.addDubbingArtist("Saori Hayami");
+
+        fireEmblem.addLocalization(enLocFE);
+        fireEmblem.addLocalization(jpLocFE);
+
+        Game tetrisEffect = new Game("Tetris Effect: Connected", "Monstars Inc.", 2020, "890126");
+        tetrisEffect.addGenre("Puzzle");
+        tetrisEffect.addGenre("Music");
+        tetrisEffect.addGenre("Single-player");
+        tetrisEffect.addPlatform("PC");
+        tetrisEffect.addPlatform("PlayStation 4");
+        tetrisEffect.addPlatform("Xbox Series X/S");
+        tetrisEffect.setTotalPlaytimeHours(20);
+        tetrisEffect.setImagePath("https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1003590/11d98bbb08ca8e16d015ae4a40b60920ae8dbe36/header.jpg?t=1741715084");
+        games.add(tetrisEffect);
+
+        Game.Localization enLocTE = new Game.Localization("English");
+        enLocTE.addTranslator("John Harper");
+        enLocTE.addDubbingArtist("Kira Buckland");
+
+        Game.Localization trLocTE = new Game.Localization("Turkish");
+        trLocTE.addDubbingArtist("Meltem Arslan");
+
+        tetrisEffect.addLocalization(enLocTE);
+        tetrisEffect.addLocalization(trLocTE);
     }
 
     private HBox bottomBox() {
@@ -301,7 +461,6 @@ public class Main extends Application {
 
             dialog.getDialogPane().setContent(grid);
 
-
             Button addButton = (Button) dialog.getDialogPane().lookupButton(addBtnType);
             addButton.setDisable(true);
 
@@ -311,7 +470,6 @@ public class Main extends Application {
 
             nameField.textProperty().addListener(validator);
             devField.textProperty().addListener(validator);
-
 
             dialog.setResultConverter(btn -> {
                 if (btn == addBtnType) {
@@ -382,11 +540,9 @@ public class Main extends Application {
         });
         fileMenu.getItems().addAll(newGame, importJson, exportJson);
 
-
         Menu helpMenu = new Menu("Help");
         MenuItem userManual = new MenuItem("User Manual");
         MenuItem about = new MenuItem("About");
-
 
         about.setOnAction(e -> {
             Stage aboutStage = new Stage();
@@ -409,7 +565,8 @@ public class Main extends Application {
             description.setFont(Font.font("Arial", 13));
             description.setWrapText(true);
 
-            Label contact = new Label("📧 Contact: emretaskin04@gmail.com\n");
+            Label contact = new Label("📧 Contact: \n          denizkaramankarakartal@hotmail.com\n          emretaskin04@gmail.com\n" +
+                    "          emnylmz055@gmail.com\n          bekircanturkmenn@gmail.com");
             contact.setFont(Font.font("Arial", 13));
 
             VBox layout = new VBox(10, appTitle, version, developer, description, contact);
@@ -435,7 +592,6 @@ public class Main extends Application {
             title.setFont(Font.font("Arial", FontWeight.BOLD, 22));
             title.setTextFill(Color.DARKBLUE);
 
-            // Collapsible sections
             TitledPane overview = createSection("🗂 1. Overview", """
         This application allows users to manage a personal game collection.\s
         You can add, edit, delete, search, sort, and filter your game list.
@@ -467,7 +623,6 @@ public class Main extends Application {
         From there, you can edit or delete the selected game.
         \s""");
 
-            // PDF Link
             Hyperlink pdfLink = new Hyperlink("📄 Click here to open the full PDF Manual");
             pdfLink.setFont(Font.font("Arial", FontWeight.BOLD, 14));
             pdfLink.setStyle("-fx-text-fill: #0077cc; -fx-underline: true;");
@@ -484,7 +639,6 @@ public class Main extends Application {
                 }
             });
 
-            // Back button
             Button backBtn = new Button("⬅ Back to Main Menu");
             backBtn.setFont(Font.font("Arial", FontWeight.BOLD, 13));
             backBtn.setStyle("-fx-background-color: #eeeeee;");
@@ -508,8 +662,6 @@ public class Main extends Application {
             manualStage.setScene(scene);
             manualStage.show();
                 });
-
-
 
         helpMenu.getItems().addAll(userManual, about);
         menuBar.getMenus().addAll(fileMenu, helpMenu);
@@ -665,6 +817,47 @@ public class Main extends Application {
     }
 
     private void createGameGrid(List<Game> gamesToDisplay) {
+
+        Map<String, Game> uniqueGamesMap = new LinkedHashMap<>();
+        Set<String> duplicateIds = new HashSet<>();
+
+        for (Game game : gamesToDisplay) {
+            String steamId = game.getSteamAppId();
+            if (steamId != null) {
+                if (uniqueGamesMap.containsKey(steamId)) {
+                    duplicateIds.add(steamId);
+                } else {
+                    uniqueGamesMap.put(steamId, game);
+                }
+            }
+        }
+
+        if (!duplicateIds.isEmpty()) {
+            StringBuilder warningMessage = new StringBuilder("Games with the following SteamID have been added more than once:\n");
+            for (String id : duplicateIds) {
+                warningMessage.append("- ").append(id).append("\n");
+            }
+
+            String explanation = " If you performed an Add operation, your game was not added.\n "
+                    + "If you performed an Edit operation, one of the games with the same SteamID "
+                    + "was removed from the list.";
+
+            Label label = new Label(warningMessage.toString() + "\n\n" + explanation);
+            label.setWrapText(true);
+            label.setMaxWidth(400);
+            label.setStyle("-fx-font-size: 13;");
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Repeated Games");
+            alert.setHeaderText("Games Found with Duplicate SteamIDs");
+            alert.getDialogPane().setContent(label);
+            alert.showAndWait();
+        }
+
+
+        gamesToDisplay.clear();
+        gamesToDisplay.addAll(uniqueGamesMap.values());
+
         gridPane.getChildren().clear();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
@@ -870,7 +1063,6 @@ public class Main extends Application {
                 publishersLabel.setText("Publishers: "
                         + String.join(", ", updated.getPublishers()));
 
-
                 localizationsBox.getChildren().clear();
                 int k = 0;
                 for (Game.Localization loc : updated.getLocalizations()) {
@@ -882,7 +1074,6 @@ public class Main extends Application {
                                     + ", Dubbing: "   + String.join(", ", loc.getDubbingArtists()) + ")"));
                 }
             });
-
         });
 
         vBox.setAlignment(Pos.CENTER);
