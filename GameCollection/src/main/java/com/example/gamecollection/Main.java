@@ -144,7 +144,7 @@ public class Main extends Application {
         valorant.addPlatform("PC");
         valorant.addGenre("Online");
         valorant.setTotalPlaytimeHours(250);
-        valorant.setImagePath("https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-pink_color_version.svg/220px-Valorant_logo-_pink_color_version.svg.png");
+        valorant.setImagePath("https://upload.wikimedia.org/wikipedia/en/b/ba/Valorant_cover.jpg");
         games.add(valorant);
 
         Game minecraft = new Game("Minecraft", "Mojang Studios", 2011, "456789");
