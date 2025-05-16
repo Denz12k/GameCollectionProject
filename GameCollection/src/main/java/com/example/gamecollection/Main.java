@@ -515,7 +515,7 @@ public class Main extends Application {
             fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON file","*json"));
             File file = fc.showOpenDialog(stage);
             if (file != null) {
-                games = JsonHandler.importGames(file);
+                games = JsonHandler.importGames(file, games);
                 createGameGrid(games);
                 if (games.isEmpty()) {
                     showAlert("Error",null,"JSON file is null or invalid.");
@@ -527,17 +527,24 @@ public class Main extends Application {
         });
         MenuItem exportJson = new MenuItem("Export JSON");
         exportJson.setOnAction(e -> {
-            DirectoryChooser directoryChooser = new DirectoryChooser();
-            directoryChooser.setTitle("Select Export Folder");
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Export Games");
+            chooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"));
+            chooser.setInitialFileName("exportedGames.json");
+            File chosen = chooser.showSaveDialog(stage);
+            if (chosen != null) {
 
-            File selectedDirectory = directoryChooser.showDialog(stage);
 
-            if (selectedDirectory != null) {
-                File exportFile = new File(selectedDirectory, "exportedGames.json");
-                JsonHandler.exportGames(games, exportFile);
+                if (!chosen.getName().toLowerCase().endsWith(".json")) {
+                    chosen = new File(chosen.getParentFile(), chosen.getName() + ".json");
+                }
+
+                JsonHandler.exportGames(games, chosen);
                 showAlert("Successful", null, "Games were exported successfully.");
             }
         });
+
         fileMenu.getItems().addAll(newGame, importJson, exportJson);
 
         Menu helpMenu = new Menu("Help");

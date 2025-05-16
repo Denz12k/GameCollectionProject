@@ -13,4 +13,9 @@
       <module name="GameCollection" target="21" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="gamecollection" options="--add-exports javafx.base/com.sun.javafx.event=ALL-UNNAMED" />
+    </option>
+  </component>
 </project>
