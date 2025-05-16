@@ -391,6 +391,7 @@ public class Main extends Application {
         VBox right = rightBox();
         HBox hbox = new HBox(25, left, right);
         hbox.setPadding(new Insets(10));
+
         return hbox;
     }
 
@@ -406,6 +407,7 @@ public class Main extends Application {
 
         VBox box = new VBox(10, sortBox, scrollPane);
         box.setAlignment(Pos.TOP_CENTER);
+
         return box;
     }
 
@@ -525,6 +527,7 @@ public class Main extends Application {
             }
             filteredGames= games;
         });
+
         MenuItem exportJson = new MenuItem("Export JSON");
         exportJson.setOnAction(e -> {
             FileChooser chooser = new FileChooser();
@@ -534,12 +537,9 @@ public class Main extends Application {
             chooser.setInitialFileName("exportedGames.json");
             File chosen = chooser.showSaveDialog(stage);
             if (chosen != null) {
-
-
                 if (!chosen.getName().toLowerCase().endsWith(".json")) {
                     chosen = new File(chosen.getParentFile(), chosen.getName() + ".json");
                 }
-
                 JsonHandler.exportGames(games, chosen);
                 showAlert("Successful", null, "Games were exported successfully.");
             }
@@ -688,6 +688,7 @@ public class Main extends Application {
         TitledPane pane = new TitledPane(title, container);
         pane.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         pane.setExpanded(false);
+
         return pane;
     }
 
@@ -860,7 +861,6 @@ public class Main extends Application {
             alert.getDialogPane().setContent(label);
             alert.showAndWait();
         }
-
 
         gamesToDisplay.clear();
         gamesToDisplay.addAll(uniqueGamesMap.values());

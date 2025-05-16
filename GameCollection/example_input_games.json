@@ -1,0 +1,114 @@
+[
+{
+"name": "God of War Ragnarök",
+"developer": "Santa Monica Studio",
+"year": 2022,
+"steamAppId": "0",
+"genres": ["Action", "Adventure"],
+"publishers": ["Sony Interactive Entertainment"],
+"platforms": ["PlayStation 5", "PlayStation 4"],
+"totalPlaytimeHours": 60,
+"imagePath": "https://upload.wikimedia.org/wikipedia/tr/7/78/Godofwarlogo.jpg",
+"localizations": [
+{
+"language": "English",
+"translators": ["Mark Davis"],
+"dubbingArtists": ["Christopher Judge", "Sunny Suljic"]
+},
+{
+"language": "Turkish",
+"translators": ["Selin Arıkan"],
+"dubbingArtists": ["Haluk Bilginer", "Alihan Türkdemir"]
+},
+{
+"language": "Spanish",
+"translators": ["Carlos García"],
+"dubbingArtists": ["Raúl Llorens"]
+}
+]
+},
+{
+"name": "The Last of Us Part I",
+"developer": "Naughty Dog",
+"year": 2022,
+"steamAppId": "1888930",
+"genres": ["Action", "Survival", "Adventure"],
+"publishers": ["Sony Interactive Entertainment"],
+"platforms": ["PC", "PlayStation 5"],
+"totalPlaytimeHours": 20,
+"imagePath": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg?t=1746041320",
+"localizations": [
+{
+"language": "English",
+"translators": ["Sarah Johnson"],
+"dubbingArtists": ["Troy Baker", "Ashley Johnson"]
+},
+{
+"language": "Turkish",
+"translators": ["Burcu Yıldız"],
+"dubbingArtists": ["Barış Özbilen", "Ceyda Kasabalı"]
+},
+{
+"language": "French",
+"translators": ["Jean Dupont"],
+"dubbingArtists": ["Damien Boisseau"]
+}
+]
+},
+{
+"name": "The Last of Us Part II",
+"developer": "Naughty Dog",
+"year": 2020,
+"steamAppId": "1888931",
+"genres": ["Action", "Survival", "Adventure"],
+"publishers": ["Sony Interactive Entertainment"],
+"platforms": ["PlayStation 4", "PlayStation 5"],
+"totalPlaytimeHours": 25,
+"imagePath": "https://upload.wikimedia.org/wikipedia/tr/6/62/The_Last_of_Us_Part_II_cover_art.png",
+"localizations": [
+{
+"language": "English",
+"translators": ["Daniel Reed"],
+"dubbingArtists": ["Ashley Johnson", "Laura Bailey"]
+},
+{
+"language": "Turkish",
+"translators": ["Zeynep Tufan"],
+"dubbingArtists": ["Ecem Uzun", "Berk Cankat"]
+},
+{
+"language": "German",
+"translators": ["Lukas Meyer"],
+"dubbingArtists": ["Maria Koschny"]
+}
+]
+},
+{
+"name": "Grand Theft Auto V",
+"developer": "Rockstar North",
+"year": 2013,
+"steamAppId": "271590",
+"genres": ["Action", "Open World"],
+"publishers": ["Rockstar Games"],
+"platforms": ["PC", "PlayStation 3", "PlayStation 4", "PlayStation 5", "Xbox 360", "Xbox One", "Xbox Series X/S"],
+"totalPlaytimeHours": 100,
+"imagePath": "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
+"localizations": [
+{
+"language": "English",
+"translators": ["Nathan Brooks"],
+"dubbingArtists": ["Ned Luke", "Steven Ogg", "Shawn Fonteno"]
+},
+{
+"language": "Turkish",
+"translators": ["Serhat Kılıç"],
+"dubbingArtists": ["Mert Fırat", "Yılmaz Erdoğan", "Şahin Irmak"]
+},
+{
+"language": "Russian",
+"translators": ["Ivan Petrov"],
+"dubbingArtists": ["Alexander Gavrilin"]
+}
+]
+}
+]
